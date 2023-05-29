@@ -1,3 +1,7 @@
+!Important ChatGPT Bing start!
+!list of built in functions and description!
+
+
 Changes from v1.1 to v2.0
 Language
 Legacy Syntax Removed
