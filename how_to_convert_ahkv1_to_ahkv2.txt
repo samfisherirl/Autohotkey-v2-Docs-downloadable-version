@@ -16,456 +16,456 @@
 */
 
 global CommandsToConvertM := OrderedMap(
-    "BlockInput,OptionT2E" ,
-    "BlockInput({1})"
-  , "DriveSpaceFree,OutputVar,PathT2E" ,
-    "{1} := DriveGetSpaceFree({2})"
-  , "Click,keysT2E" ,
-    "Click({1})"
-  , "ClipWait,Timeout,WaitForAnyData" ,
-    "Errorlevel := !ClipWait({1}, {2})"
-  , "Control,SubCommand,ValueT2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_Control"
-  , "ControlClick,Control-or-PosT2E,WinTitleT2E,WinTextT2E,WhichButtonT2E,ClickCountT2E,OptionsT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlClick({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})"
-  , "ControlFocus,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlFocus({1}, {2}, {3}, {4}, {5})"
-  , "ControlGet,OutputVar,SubCommand,ValueT2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_ControlGet"
-  , "ControlGetFocus,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_ControlGetFocus"
-  , "ControlGetPos,XV2VR,YV2VR,WidthV2VR,HeightV2VR,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlGetPos({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})"
-  , "ControlGetText,OutputVar,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "{1} := ControlGetText({2}, {3}, {4}, {5}, {6})"
-  , "ControlMove,ControlT2E,XCBE2E,YCBE2E,WidthCBE2E,HeightT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlMove({2}, {3}, {4}, {5}, {1}, {6}, {7}, {8}, {9})"
-  , "ControlSend,ControlT2E,KeysT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlSend({2}, {1}, {3}, {4}, {5}, {6})"
-  , "ControlSendRaw,ControlT2E,KeysT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlSendText({2}, {1}, {3}, {4}, {5}, {6})"
-  , "ControlSetText,ControlT2E,NewTextT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "ControlSetText({2}, {1}, {3}, {4}, {5}, {6})"
-  , "CoordMode,TargetTypeT2E,RelativeToT2E" ,
-    "*_CoordMode"
-  , "Critical,OnOffNumericT2E" ,
-    "Critical({1})" ; The use of On2True is discouraged and unnecessary.
-  , "DetectHiddenText,ModeOn2True" ,
-    "DetectHiddenText({1})"
-  , "DetectHiddenWindows,ModeOn2True" ,
-    "DetectHiddenWindows({1})"
-  , "Drive,SubCommand,Value1,Value2" ,
-    "*_Drive"
-  , "DriveGet,OutputVar,SubCommand,ValueT2E" ,
-    "{1} := DriveGet{2}({3})"
-  , "Edit" ,
-    "Edit()"
-  , "EnvAdd,var,valueCBE2E,TimeUnitsT2E" ,
-    "*_EnvAdd"
-  , "EnvSet,EnvVarT2E,ValueT2E" ,
-    "EnvSet({1}, {2})"
-  , "EnvSub,var,valueCBE2E,TimeUnitsT2E" ,
-    "*_EnvSub"
-  , "EnvDiv,var,valueCBE2E" ,
-    "{1} /= {2}"
-  , "EnvGet,OutputVar,EnvVarNameT2E" ,
-    "{1} := EnvGet({2})"
-  , "EnvMult,var,valueCBE2E" ,
-    "{1} *= {2}"
-  , "EnvUpdate" ,
-    'SendMessage, `% WM_SETTINGCHANGE := 0x001A, 0, Environment,, `% "ahk_id " . HWND_BROADCAST := "0xFFFF"'
-  , "Exit,ExitCode" ,
-    "Exit({1})"
-  , "ExitApp,ExitCode" ,
-    "ExitApp({1})"
-  , "FileAppend,textT2E,fileT2E,encT2E" ,
-    "FileAppend({1}, {2}, {3})"
-  , "FileCopyDir,sourceT2E,destT2E,flagCBE2E" ,
-    "*_FileCopyDir"
-  , "FileCopy,sourceT2E,destT2E,OverwriteCBE2E" ,
-    "*_FileCopy"
-  , "FileCreateDir,dirT2E" ,
-    "DirCreate({1})"
-  , "FileCreateShortcut,TargetT2E,LinkFileT2E,WorkingDirT2E,ArgsT2E,DescriptionT2E,IconFileT2E,ShortcutKeyT2E,IconNumberT2E,RunStateT2E" ,
-    "FileCreateShortcut({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9})"
-  , "FileDelete,dirT2E" ,
-    "FileDelete({1})"
-  , "FileEncoding,FilePatternT2E" ,
-    "FileEncoding({1})"
-  , "FileGetAttrib,OutputVar,FilenameT2E" ,
-    "{1} := FileGetAttrib({2})"
-  , "FileGetSize,OutputVar,FilenameT2E,unitsT2E" ,
-    "{1} := FileGetSize({2}, {3})"
-  , "FileGetTime,OutputVar,FilenameT2E,WhichTimeT2E" ,
-    "{1} := FileGetTime({2}, {3})"
-  , "FileGetVersion,OutputVar,FilenameT2E" ,
-    "{1} := FileGetVersion({2})"
-  , "FileGetShortcut,LinkFileT2E,OutTargetV2VR,OutDirV2VR,OutArgsV2VR,OutDescriptionV2VR,OutIconV2VR,OutIconNumV2VR,OutRunStateV2VR" ,
-    "FileGetShortcut({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})"
-  , "FileInstall,SourceT2E,DestT2E,OverwriteT2E" ,
-    "FileInstall({1}, {2}, {3})"
-  , "FileMove,SourceT2E,DestPatternT2E,OverwriteT2E" ,
-    "FileMove({1}, {2}, {3})"
-  , "FileMoveDir,SourceT2E,DestT2E,FlagT2E" ,
-    "DirMove({1}, {2}, {3})"
-  , "FileRead,OutputVar,Filename" ,
-    "*_FileRead"
-  , "FileReadLine,OutputVar,FilenameT2E,LineNumCBE2E" ,
-    "*_FileReadLine"
-  , "FileRecycle,FilePatternT2E" ,
-    "FileRecycle({1})"
-  , "FileRecycleEmpty,FilePatternT2E" ,
-    "FileRecycleEmpty({1})"
-  , "FileRemoveDir,dirT2E,recurse" ,
-    "DirDelete({1}, {2})"
-  , "FileSelectFile,var,opts,rootdirfile,prompt,filter" ,
-    "*_FileSelect"
-  , "FileSelectFolder,var,startingdirT2E,opts,promptT2E" ,
-    "{1} := DirSelect({2}, {3}, {4})"
-  , "FileSetAttrib,AttributesT2E,FilePatternT2E,OperateOnFolders,Recurse" ,
-    "*_FileSetAttrib"
-  , "FileSetTime,YYYYMMDDHH24MISST2E,FilePatternT2E,WhichTimeT2E,OperateOnFolders,Recurse" ,
-    "*_FileSetTime"
-  , "FormatTime,outVar,dateT2E,formatT2E" ,
-    "{1} := FormatTime({2}, {3})"
-  , "GetKeyState,OutputVar,KeyNameT2E,ModeT2E" ,
-    '{1} := GetKeyState({2}, {3}) ? "D" : "U"'
-  , "Gui,SubCommand,Value1,Value2,Value3" ,
-    "*_Gui"
-  , "GuiControl,SubCommand,ControlID,Value" ,
-    "*_GuiControl"
-  , "GuiControlGet,OutputVar,SubCommand,ControlID,Value" ,
-    "*_GuiControlGet"
-  , "Gosub,Label" ,
-    "*_Gosub"
-  , "Goto,Label" ,
-    "Goto({1})"
-  , "GroupActivate,GroupNameT2E,ModeT2E" ,
-    "GroupActivate({1}, {2})"
-  , "GroupAdd,GroupNameT2E,WinTitleT2E,WinTextT2E,LabelT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "GroupAdd({1}, {2}, {3}, {4}, {5}, {6})"
-  , "GroupClose,GroupNameT2E,ModeT2E" ,
-    "GroupClose({1}, {2})"
-  , "GroupDeactivate,GroupNameT2E,ModeT2E" ,
-    "GroupDeactivate({1}, {2})"
-  , "Hotkey,Var1,Var2CBE2E,Var3" ,
-    "*_Hotkey"
-  , "KeyWait,KeyNameT2E,OptionsT2E" ,
-    "*_KeyWait"
-  , "IfEqual,var,valueT2QE" ,
-    "if ({1} = {2})"
-  , "IfNotEqual,var,valueT2QE" ,
-    "if ({1} != {2})"
-  , "IfGreater,var,valueT2QE" ,
-    "*_IfGreater"
-  , "IfGreaterOrEqual,var,valueT2QE" ,
-    "*_IfGreaterOrEqual"
-  , "IfLess,var,valueT2QE" ,
-    "*_IfLess"
-  , "IfLessOrEqual,var,valueT2QE" ,
-    "*_IfLessOrEqual"
-  , "IfInString,var,valueT2E" ,
-    "if InStr({1}, {2})"
-  , "IfMsgBox,ButtonNameT2E" ,
-    "if (msgResult = {1})"
-  , "IfNotInString,var,valueT2E" ,
-    "if !InStr({1}, {2})"
-  , "IfExist,fileT2E" ,
-    "if FileExist({1})"
-  , "IfNotExist,fileT2E" ,
-    "if !FileExist({1})"
-  , "IfWinExist,titleT2E,textT2E,excltitleT2E,excltextT2E" ,
-    "if WinExist({1}, {2}, {3}, {4})"
-  , "IfWinNotExist,titleT2E,textT2E,excltitleT2E,excltextT2E" ,
-    "if !WinExist({1}, {2}, {3}, {4})"
-  , "IfWinActive,titleT2E,textT2E,excltitleT2E,excltextT2E" ,
-    "if WinActive({1}, {2}, {3}, {4})"
-  , "IfWinNotActive,titleT2E,textT2E,excltitleT2E,excltextT2E" ,
-    "if !WinActive({1}, {2}, {3}, {4})"
-  , "ImageSearch,OutputVarXV2VR,OutputVarYV2VR,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,ImageFileT2E" ,
-    "ErrorLevel := !ImageSearch({1}, {2}, {3}, {4}, {5}, {6}, {7})"
-  , "IniDelete,FilenameT2E,SectionT2E,KeyT2E" ,
-    "IniDelete({1}, {2}, {3})"
-  , "IniRead,OutputVar,FilenameT2E,SectionT2E,KeyT2E,DefaultT2E" ,
-    "{1} := IniRead({2}, {3}, {4}, {5})"
-  , "IniWrite,ValueT2E,FilenameT2E,SectionT2E,KeyT2E" ,
-    "IniWrite({1}, {2}, {3}, {4})"
-  , "Input,OutputVar,OptionsT2E,EndKeysT2E,MatchListT2E" ,
-    "*_input"
-  , "Inputbox,OutputVar,Title,Prompt,HIDE,WidthCBE2E,HeightCBE2E,XCBE2E,YCBE2E,Locale,TimeoutCBE2E,Default" ,
-    "*_InputBox"
-  , "ListHotkeys" ,
-    "ListHotkeys()"
-  , "ListLines, ModeOn2True" ,
-    "ListLines({1})"
-  , "ListVars" ,
-    "ListVars()"
-  , "Loop,one,two,three,four" ,
-    "*_Loop"
-  , "Menu,MenuName,SubCommand,Value1,Value2,Value3,Value4" ,
-    "*_Menu"
-  , "MsgBox,TextOrOptions,Title,Text,Timeout" ,
-    "*_MsgBox"
-  , "MouseGetPos,OutputVarXV2VR,OutputVarYV2VR,OutputVarWinV2VR,OutputVarControlV2VR,Flag"       , "MouseGetPos({1}, {2}, {3}, {4}, {5})"
-  , "MouseClick,WhichButtonT2E,XCBE2E,YCBE2E,ClickCountCBE2E,SpeedCBE2E,DownOrUpT2E,RelativeT2E" ,
-    "MouseClick({1}, {2}, {3}, {4}, {5}, {6}, {7})"
-  , "MouseClickDrag,WhichButtonT2E,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,SpeedCBE2E,RelativeT2E"       , "MouseClickDrag({1}, {2}, {3}, {4}, {5}, {6}, {7})"
-  , "MouseMove,XCBE2E,YCBE2E,SpeedCBE2E,RelativeT2E" ,
-    "MouseMove({1}, {2}, {3}, {4})"
-  , "OnExit,Func,AddRemove" ,
-    "*_OnExit"
-  , "OutputDebug,TextT2E" ,
-    "OutputDebug({1})"
-  , "Pause,OnOffToggleOn2True,OperateOnUnderlyingThread " ,
-    "*_Pause"
-  , "PixelGetColor,OutputVar,XCBE2E,YCBE2E,ModeT2E" ,
-    "{1} := PixelGetColor({2}, {3}, {4}) `;V1toV2: Switched from BGR to RGB values"
-  , "PixelSearch,OutputVarXV2VR,OutputVarYV2VR,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,ColorIDCBE2E,VariationCBE2E,ModeT2E" ,
-    "ErrorLevel := !PixelSearch({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) `;V1toV2: Switched from BGR to RGB values"
-  , "PostMessage,MsgCBE2E,wParamCBE2E,lParamCBE2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "PostMessage({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})"
-  , "Process,SubCommand,PIDOrNameT2E,ValueT2E" ,
-    "*_Process"
-  , "Progress, ProgressParam1,SubTextT2E,MainTextT2E,WinTitleT2E,FontNameT2E" ,
-    "*_Progress"
-  , "Random,OutputVar,MinCBE2E,MaxCBE2E" ,
-    "*_Random"
-  , "RegRead,OutputVar,KeyName,ValueName,var4" ,
-    "*_RegRead"
-  , "RegWrite,ValueTypeT2E,KeyNameT2E,var3T2E,var4T2E,var5T2E" ,
-    "*_RegWrite"
-  , "RegDelete,var1,var2,var3" ,
-    "*_RegDelete"
-  , "Reload" ,
-    "Reload()"
-  , "RunAs,UserT2E,PasswordT2E,DomainT2E" ,
-    "RunAs({1}, {2}, {3})"
-  , "Run,TargetT2E,WorkingDirT2E,OptionsT2E,OutputVarPIDV2VR" ,
-    "*_Run"
-  , "RunWait,TargetT2E,WorkingDirT2E,OptionsT2E,OutputVarPIDV2VR" ,
-    "RunWait({1}, {2}, {3}, {4})"
-  , "SetCapsLockState, StateT2E" ,
-    "SetCapsLockState({1})"
-  , "SetControlDelay,DelayCBE2E" ,
-    "SetControlDelay({1})"
-  , "SetEnv,var,valueT2E" ,
-    "{1} := {2}"
-  , "SetNumLockState, StateT2E" ,
-    "SetNumLockState({1})"
-  , "SetKeyDelay,DelayCBE2E,PressDurationCBE2E,PlayT2E" ,
-    "SetKeyDelay({1}, {2}, {3})"
-  , "SetMouseDelay,DelayCBE2E,PlayT2E" ,
-    "SetMouseDelay({1}, {2})"
-  , "SetRegView, RegViewT2E" ,
-    "SetRegView({1})"
-  , "SetScrollLockState, StateT2E" ,
-    "SetScrollLockState({1})"
-  , "SetStoreCapsLockMode,OnOffOn2True" ,
-    "SetStoreCapsLockMode({1})"
-  , "SetTimer,LabelCBE2E,PeriodOnOffDeleteCBE2E,PriorityCBE2E" ,
-    "*_SetTimer"
-  , "SetTitleMatchMode,MatchModeT2E" ,
-    "SetTitleMatchMode({1})"
-  , "SetWinDelay,DelayCBE2E" ,
-    "SetWinDelay({1})"
-  , "SetWorkingDir,DirNameT2E" ,
-    "SetWorkingDir({1})"
-  , "Send,keysT2E" ,
-    "Send({1})"
-  , "SendText,keysT2E" ,
-    "SendText({1})"
-  , "SendMode,ModeT2E" ,
-    "SendMode({1})"
-  , "SendMessage,MsgCBE2E,wParamCBE2E,lParamCBE2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E,TimeoutCBE2E" ,
-    "*_SendMessage"
-  , "SendInput,keysT2E" ,
-    "SendInput({1})"
-  , "SendLevel,LevelT2E" ,
-    "SendLevel({1})"
-  , "SendRaw,keys" ,
-    "*_SendRaw"
-  , "SetDefaultMouseSpeed, LevelT2E" ,
-    "SetDefaultMouseSpeed({1})"
-  , "SendPlay,keysT2E" ,
-    "SendPlay({1})"
-  , "SendEvent,keysT2E" ,
-    "SendEvent({1})"
-  , "SendEvent,keysT2E" ,
-    "SendEvent({1})"
-  , "Shutdown, FlagCBE2E" ,
-    "Shutdown({1})"
-  , "Sleep,delayCBE2E" ,
-    "Sleep({1})"
-  , "Sort,var,optionsT2E" ,
-    "*_Sort"
-  , "SoundBeep,FrequencyCBE2E,DurationCBE2E" ,
-    "SoundBeep({1}, {2})"
-  , "SoundGet,OutputVar,ComponentTypeT2E,ControlType,DeviceNumberT2E" ,
-    "*_SoundGet"
-  , "SoundPlay,FrequencyT2E,DurationCBE2E" ,
-    "SoundPlay({1}, {2})"
-  , "SoundSet,NewSetting,ComponentTypeT2E,ControlType,DeviceNumberT2E" ,
-    "*_SoundSet"
-  , "SplashTextOn,Width,Height,TitleT2E,TextT2E" ,
-    "*_SplashTextOn"
-  , "SplashTextOff" ,
-    "SplashTextGui.Destroy"
-  , "SplashImage,ImageFileT2E,Options,SubTextT2E,MainTextT2E,WinTitleT2E,FontNameT2E" ,
-    "*_SplashImage"
-  , "SplitPath,varCBE2E,filenameV2VR,dirV2VR,extV2VR,name_no_extV2VR,drvV2VR" ,
-    "SplitPath({1}, {2}, {3}, {4}, {5}, {6})"
-  , "StatusBarGetText,Part,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "{1} := StatusBarGetText({2}, {3}, {4}, {5})"
-  , "StatusBarWait,BarTextT2E,Timeout,Part,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    " StatusBarWait({1}, {2}, {3}, {4}, {5}, {6})"
-  , "StringCaseSense,param" ,
-    ";REMOVED StringCaseSense, {1}"
-  , "StringGetPos,OutputVar,InputVar,SearchTextT2E,SideT2E,OffsetCBE2E" ,
-    "*_StringGetPos"
-  , "StringLen,OutputVar,InputVar" ,
-    "{1} := StrLen({2})"
-  , "StringLeft,OutputVar,InputVar,CountCBE2E" ,
-    "{1} := SubStr({2}, 1, {3})"
-  , "StringMid,OutputVar,InputVar,StartCharCBE2E,CountCBE2E,L_T2E" ,
-    "*_StringMid"
-  , "StringRight,OutputVar,InputVar,CountCBE2E" ,
-    "{1} := SubStr({2}, -1*({3}))"
-  , "StringSplit,OutputArray,InputVar,DelimitersT2E,OmitCharsT2E" ,
-    "*_StringSplit"
-  , "StringTrimLeft,OutputVar,InputVar,CountCBE2E" ,
-    "{1} := SubStr({2}, ({3})+1)"
-  , "StringTrimRight,OutputVar,InputVar,CountCBE2E" ,
-    "{1} := SubStr({2}, 1, -1*({3}))"
-  , "StringUpper,OutputVar,InputVar,TT2E" ,
-    "*_StringUpper"
-  , "StringLower,OutputVar,InputVar,TT2E" ,
-    "*_StringLower"
-  , "StringReplace,OutputVar,InputVar,SearchTxtT2E,ReplTxtT2E,ReplAll" ,
-    "*_StringReplace"
-  , "Suspend,ModeOn2True" ,
-    "*_SuspendV2"
-  , "SysGet,OutputVar,SubCommand,ValueCBE2E" ,
-    "*_SysGet"
-  , "Thread,SubCommandT2E,Value1CBE2E,Value2CBE2E" ,
-    "Thread({1}, {2}, {3})"
-  , "ToolTip,txtT2E,xCBE2E,yCBE2E,whichCBE2E" ,
-    "ToolTip({1}, {2}, {3}, {4})"
-  , "TrayTip,TitleT2E,TextT2E,Seconds,OptionsT2E" ,
-    "TrayTip({1}, {2}, {4})"
-  , "Transform,OutputVar,SubCommand,Value1T2E,Value2T2E" ,
-    " *_Transform"
-  , "UrlDownloadToFile,URLT2E,FilenameT2E" ,
-    "Download({1},{2})"
-  , "WinActivate,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinActivate({1}, {2}, {3}, {4})"
-  , "WinActivateBottom,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinActivateBottom({1}, {2}, {3}, {4})"
-  , "WinClose,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinClose({1}, {2}, {3}, {4}, {5})"
-  , "WinGet,OutputVar,SubCommand,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinGet"
-  , "WinGetActiveStats,TitleVar,WidthVar,HeightVar,XVar,YVar" ,
-    "*_WinGetActiveStats"
-  , "WinGetActiveTitle,OutputVar" ,
-    '{1} := WinGetTitle("A")'
-  , "WinGetClass,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "{1} := WinGetClass({2}, {3}, {4}, {5})"
-  , "WinGetText,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "{1} := WinGetText({2}, {3}, {4}, {5})"
-  , "WinGetTitle,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "{1} := WinGetTitle({2}, {3}, {4}, {5})"
-  , "WinGetPos,XV2VR,YV2VR,WidthV2VR,HeightV2VR,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinGetPos({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})"
-  , "WinHide,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinHide({1}, {2}, {3}, {4})"
-  , "WinKill,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinKill({1}, {2}, {3}, {4}, {5})"
-  , "WinMaximize,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinMaximize({1}, {2}, {3}, {4})"
-  , "WinMinimize,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinMinimize({1}, {2}, {3}, {4})"
-  , "WinMove,val1,val2,XCBE2E,YCBE2E,WidthCBE2E,HeightCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinMove"
-  , "WinMenuSelectItem,WinTitleT2E,WinTextT2E,MenuT2E,SubMenu1T2E,SubMenu2T2E,SubMenu3T2E,SubMenu4T2E,SubMenu5T2E,SubMenu6T2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "MenuSelect({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})"
-  , "WinSet,SubCommand,ValueT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinSet"
-  , "WinSetTitle,WinTitleT2E,WinTextT2E,NewTitleT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinSetTitle"
-  , "WinRestore,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinRestore({1}, {2}, {3}, {4})"
-  , "WinShow,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "WinShow({1}, {2}, {3}, {4})"
-  , "WinWait,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinWait"
-  , "WinWaitActive,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinWaitActive"
-  , "WinWaitNotActive,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinWaitNotActive"
-  , "WinWaitClose,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" ,
-    "*_WinWaitClose"
-  , "#ClipboardTimeout, MillisecondsCBE2E" ,
-    "#ClipboardTimeout {1}"
-  , "#ErrorStdOut,EncodingCBE2E" ,
-    "#ErrorStdOut {1}"
-  , "#HotkeyInterval,MillisecondsCBE2E" ,
-    "A_HotkeyInterval := {1}"
-  , "#HotkeyModifierTimeout,MillisecondsCBE2E" ,
-    "A_HotkeyModifierTimeout := {1}"
-  , "#HotString,ExpressionCBE2E" ,
-    "#HotString {1}"
-  , "#If,ExpressionCBE2E" ,
-    "#HotIf {1}"
-  , "#IfTimeout,ExpressionCBE2E" ,
-    "#HotIfTimeout {1}"
-  , "#Include,FileOrDirNameT2E" ,
-    "#Include {1}"
-  , "#IncludeAgain,FileOrDirNameT2E" ,
-    "#IncludeAgain {1}"
-  , "#InputLevel,LevelCBE2E" ,
-    "#InputLevel {1}"
-  , "#IfWinActive,WinTitleT2E,WinTextT2E" ,
-    "*_HashtagIfWinActivate"
-  , "#IfWinExist,WinTitleT2E,WinTextT2E" ,
-    "#HotIf WinExist({1}, {2})"
-  , "#IfWinNotActive,WinTitleT2E,WinTextT2E" ,
-    "#HotIf !WinActive({1}, {2})"
-  , "#IfWinNotExist,WinTitleT2E,WinTextT2E" ,
-    "#HotIf !WinExist({1}, {2})"
-  , "#InputLevel,LevelCBE2E" ,
-    "#InputLevel {1}"
-  , "#InstallKeybdHook" ,
-    "InstallKeybdHook()"
-  , "#InstallMouseHook" ,
-    "InstallMouseHook()"
-  , "#KeyHistory,MaxEventsCBE2E" ,
-    "KeyHistory({1})"
-  , "#MaxHotkeysPerInterval,ValueCBE2E" ,
-    "A_MaxHotkeysPerInterval := {1}"
-  , "#MaxThreads,ValueCBE2E" ,
-    "#MaxThreads {1}"
-  , "#MaxThreadsBuffer,OnOffOn2True" ,
-    "#MaxThreadsBuffer {1}"
-  , "#MaxThreadsPerHotkey,ValueCBE2E" ,
-    "#MaxThreadsPerHotkey {1}"
-  , "#MenuMaskKey,KeyNameT2E" ,
-    "A_MenuMaskKey := {1}"
-  , "#Persistent" ,
-    "Persistent"
-  , "#Requires,AutoHotkey Version" ,
-    "#Requires Autohotkey v2.0"
-  , "#SingleInstance, ForceIgnorePromptOff" ,
-    "#SingleInstance {1}"
-  , "#UseHook,OnOffOn2True" ,
-    "#UseHook {1}"
-  , "#Warn,WarningType,WarningMode" ,
+    "BlockInput,OptionT2E" , <== Remove this autohotkey v1 and replace with:
+    "BlockInput({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "DriveSpaceFree,OutputVar,PathT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := DriveGetSpaceFree({2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Click,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "Click({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ClipWait,Timeout,WaitForAnyData" , <== Remove this autohotkey v1 and replace with:
+    "Errorlevel := !ClipWait({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Control,SubCommand,ValueT2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_Control" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlClick,Control-or-PosT2E,WinTitleT2E,WinTextT2E,WhichButtonT2E,ClickCountT2E,OptionsT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlClick({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlFocus,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlFocus({1}, {2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlGet,OutputVar,SubCommand,ValueT2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_ControlGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlGetFocus,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_ControlGetFocus" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlGetPos,XV2VR,YV2VR,WidthV2VR,HeightV2VR,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlGetPos({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlGetText,OutputVar,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := ControlGetText({2}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlMove,ControlT2E,XCBE2E,YCBE2E,WidthCBE2E,HeightT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlMove({2}, {3}, {4}, {5}, {1}, {6}, {7}, {8}, {9})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlSend,ControlT2E,KeysT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlSend({2}, {1}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlSendRaw,ControlT2E,KeysT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlSendText({2}, {1}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ControlSetText,ControlT2E,NewTextT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "ControlSetText({2}, {1}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "CoordMode,TargetTypeT2E,RelativeToT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_CoordMode" , <== this is the Autohotkey v2 that replaces the above code:
+    "Critical,OnOffNumericT2E" , <== Remove this autohotkey v1 and replace with:
+    "Critical({1})" ; The use of On2True is discouraged and unnecessary. , <== this is the Autohotkey v2 that replaces the above code:
+    "DetectHiddenText,ModeOn2True" , <== Remove this autohotkey v1 and replace with:
+    "DetectHiddenText({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "DetectHiddenWindows,ModeOn2True" , <== Remove this autohotkey v1 and replace with:
+    "DetectHiddenWindows({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Drive,SubCommand,Value1,Value2" , <== Remove this autohotkey v1 and replace with:
+    "*_Drive" , <== this is the Autohotkey v2 that replaces the above code:
+    "DriveGet,OutputVar,SubCommand,ValueT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := DriveGet{2}({3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Edit" , <== Remove this autohotkey v1 and replace with:
+    "Edit()" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvAdd,var,valueCBE2E,TimeUnitsT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_EnvAdd" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvSet,EnvVarT2E,ValueT2E" , <== Remove this autohotkey v1 and replace with:
+    "EnvSet({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvSub,var,valueCBE2E,TimeUnitsT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_EnvSub" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvDiv,var,valueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} /= {2}" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvGet,OutputVar,EnvVarNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := EnvGet({2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvMult,var,valueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} *= {2}" , <== this is the Autohotkey v2 that replaces the above code:
+    "EnvUpdate" , <== Remove this autohotkey v1 and replace with:
+    'SendMessage, `% WM_SETTINGCHANGE := 0x001A, 0, Environment,, `% "ahk_id " . HWND_BROADCAST := "0xFFFF"' , <== this is the Autohotkey v2 that replaces the above code:
+    "Exit,ExitCode" , <== Remove this autohotkey v1 and replace with:
+    "Exit({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ExitApp,ExitCode" , <== Remove this autohotkey v1 and replace with:
+    "ExitApp({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileAppend,textT2E,fileT2E,encT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileAppend({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileCopyDir,sourceT2E,destT2E,flagCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_FileCopyDir" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileCopy,sourceT2E,destT2E,OverwriteCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_FileCopy" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileCreateDir,dirT2E" , <== Remove this autohotkey v1 and replace with:
+    "DirCreate({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileCreateShortcut,TargetT2E,LinkFileT2E,WorkingDirT2E,ArgsT2E,DescriptionT2E,IconFileT2E,ShortcutKeyT2E,IconNumberT2E,RunStateT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileCreateShortcut({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileDelete,dirT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileDelete({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileEncoding,FilePatternT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileEncoding({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileGetAttrib,OutputVar,FilenameT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := FileGetAttrib({2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileGetSize,OutputVar,FilenameT2E,unitsT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := FileGetSize({2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileGetTime,OutputVar,FilenameT2E,WhichTimeT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := FileGetTime({2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileGetVersion,OutputVar,FilenameT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := FileGetVersion({2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileGetShortcut,LinkFileT2E,OutTargetV2VR,OutDirV2VR,OutArgsV2VR,OutDescriptionV2VR,OutIconV2VR,OutIconNumV2VR,OutRunStateV2VR" , <== Remove this autohotkey v1 and replace with:
+    "FileGetShortcut({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileInstall,SourceT2E,DestT2E,OverwriteT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileInstall({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileMove,SourceT2E,DestPatternT2E,OverwriteT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileMove({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileMoveDir,SourceT2E,DestT2E,FlagT2E" , <== Remove this autohotkey v1 and replace with:
+    "DirMove({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileRead,OutputVar,Filename" , <== Remove this autohotkey v1 and replace with:
+    "*_FileRead" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileReadLine,OutputVar,FilenameT2E,LineNumCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_FileReadLine" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileRecycle,FilePatternT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileRecycle({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileRecycleEmpty,FilePatternT2E" , <== Remove this autohotkey v1 and replace with:
+    "FileRecycleEmpty({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileRemoveDir,dirT2E,recurse" , <== Remove this autohotkey v1 and replace with:
+    "DirDelete({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileSelectFile,var,opts,rootdirfile,prompt,filter" , <== Remove this autohotkey v1 and replace with:
+    "*_FileSelect" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileSelectFolder,var,startingdirT2E,opts,promptT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := DirSelect({2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileSetAttrib,AttributesT2E,FilePatternT2E,OperateOnFolders,Recurse" , <== Remove this autohotkey v1 and replace with:
+    "*_FileSetAttrib" , <== this is the Autohotkey v2 that replaces the above code:
+    "FileSetTime,YYYYMMDDHH24MISST2E,FilePatternT2E,WhichTimeT2E,OperateOnFolders,Recurse" , <== Remove this autohotkey v1 and replace with:
+    "*_FileSetTime" , <== this is the Autohotkey v2 that replaces the above code:
+    "FormatTime,outVar,dateT2E,formatT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := FormatTime({2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "GetKeyState,OutputVar,KeyNameT2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    '{1} := GetKeyState({2}, {3}) ? "D" : "U"' , <== this is the Autohotkey v2 that replaces the above code:
+    "Gui,SubCommand,Value1,Value2,Value3" , <== Remove this autohotkey v1 and replace with:
+    "*_Gui" , <== this is the Autohotkey v2 that replaces the above code:
+    "GuiControl,SubCommand,ControlID,Value" , <== Remove this autohotkey v1 and replace with:
+    "*_GuiControl" , <== this is the Autohotkey v2 that replaces the above code:
+    "GuiControlGet,OutputVar,SubCommand,ControlID,Value" , <== Remove this autohotkey v1 and replace with:
+    "*_GuiControlGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "Gosub,Label" , <== Remove this autohotkey v1 and replace with:
+    "*_Gosub" , <== this is the Autohotkey v2 that replaces the above code:
+    "Goto,Label" , <== Remove this autohotkey v1 and replace with:
+    "Goto({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "GroupActivate,GroupNameT2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "GroupActivate({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "GroupAdd,GroupNameT2E,WinTitleT2E,WinTextT2E,LabelT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "GroupAdd({1}, {2}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "GroupClose,GroupNameT2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "GroupClose({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "GroupDeactivate,GroupNameT2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "GroupDeactivate({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Hotkey,Var1,Var2CBE2E,Var3" , <== Remove this autohotkey v1 and replace with:
+    "*_Hotkey" , <== this is the Autohotkey v2 that replaces the above code:
+    "KeyWait,KeyNameT2E,OptionsT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_KeyWait" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfEqual,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "if ({1} = {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfNotEqual,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "if ({1} != {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfGreater,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "*_IfGreater" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfGreaterOrEqual,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "*_IfGreaterOrEqual" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfLess,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "*_IfLess" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfLessOrEqual,var,valueT2QE" , <== Remove this autohotkey v1 and replace with:
+    "*_IfLessOrEqual" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfInString,var,valueT2E" , <== Remove this autohotkey v1 and replace with:
+    "if InStr({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfMsgBox,ButtonNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "if (msgResult = {1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfNotInString,var,valueT2E" , <== Remove this autohotkey v1 and replace with:
+    "if !InStr({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfExist,fileT2E" , <== Remove this autohotkey v1 and replace with:
+    "if FileExist({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfNotExist,fileT2E" , <== Remove this autohotkey v1 and replace with:
+    "if !FileExist({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfWinExist,titleT2E,textT2E,excltitleT2E,excltextT2E" , <== Remove this autohotkey v1 and replace with:
+    "if WinExist({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfWinNotExist,titleT2E,textT2E,excltitleT2E,excltextT2E" , <== Remove this autohotkey v1 and replace with:
+    "if !WinExist({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfWinActive,titleT2E,textT2E,excltitleT2E,excltextT2E" , <== Remove this autohotkey v1 and replace with:
+    "if WinActive({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IfWinNotActive,titleT2E,textT2E,excltitleT2E,excltextT2E" , <== Remove this autohotkey v1 and replace with:
+    "if !WinActive({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ImageSearch,OutputVarXV2VR,OutputVarYV2VR,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,ImageFileT2E" , <== Remove this autohotkey v1 and replace with:
+    "ErrorLevel := !ImageSearch({1}, {2}, {3}, {4}, {5}, {6}, {7})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IniDelete,FilenameT2E,SectionT2E,KeyT2E" , <== Remove this autohotkey v1 and replace with:
+    "IniDelete({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IniRead,OutputVar,FilenameT2E,SectionT2E,KeyT2E,DefaultT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := IniRead({2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "IniWrite,ValueT2E,FilenameT2E,SectionT2E,KeyT2E" , <== Remove this autohotkey v1 and replace with:
+    "IniWrite({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Input,OutputVar,OptionsT2E,EndKeysT2E,MatchListT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_input" , <== this is the Autohotkey v2 that replaces the above code:
+    "Inputbox,OutputVar,Title,Prompt,HIDE,WidthCBE2E,HeightCBE2E,XCBE2E,YCBE2E,Locale,TimeoutCBE2E,Default" , <== Remove this autohotkey v1 and replace with:
+    "*_InputBox" , <== this is the Autohotkey v2 that replaces the above code:
+    "ListHotkeys" , <== Remove this autohotkey v1 and replace with:
+    "ListHotkeys()" , <== this is the Autohotkey v2 that replaces the above code:
+    "ListLines, ModeOn2True" , <== Remove this autohotkey v1 and replace with:
+    "ListLines({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ListVars" , <== Remove this autohotkey v1 and replace with:
+    "ListVars()" , <== this is the Autohotkey v2 that replaces the above code:
+    "Loop,one,two,three,four" , <== Remove this autohotkey v1 and replace with:
+    "*_Loop" , <== this is the Autohotkey v2 that replaces the above code:
+    "Menu,MenuName,SubCommand,Value1,Value2,Value3,Value4" , <== Remove this autohotkey v1 and replace with:
+    "*_Menu" , <== this is the Autohotkey v2 that replaces the above code:
+    "MsgBox,TextOrOptions,Title,Text,Timeout" , <== Remove this autohotkey v1 and replace with:
+    "*_MsgBox" , <== this is the Autohotkey v2 that replaces the above code:
+    "MouseGetPos,OutputVarXV2VR,OutputVarYV2VR,OutputVarWinV2VR,OutputVarControlV2VR,Flag"       , "MouseGetPos({1}, {2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "MouseClick,WhichButtonT2E,XCBE2E,YCBE2E,ClickCountCBE2E,SpeedCBE2E,DownOrUpT2E,RelativeT2E" , <== Remove this autohotkey v1 and replace with:
+    "MouseClick({1}, {2}, {3}, {4}, {5}, {6}, {7})" , <== this is the Autohotkey v2 that replaces the above code:
+    "MouseClickDrag,WhichButtonT2E,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,SpeedCBE2E,RelativeT2E"       , "MouseClickDrag({1}, {2}, {3}, {4}, {5}, {6}, {7})" , <== this is the Autohotkey v2 that replaces the above code:
+    "MouseMove,XCBE2E,YCBE2E,SpeedCBE2E,RelativeT2E" , <== Remove this autohotkey v1 and replace with:
+    "MouseMove({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "OnExit,Func,AddRemove" , <== Remove this autohotkey v1 and replace with:
+    "*_OnExit" , <== this is the Autohotkey v2 that replaces the above code:
+    "OutputDebug,TextT2E" , <== Remove this autohotkey v1 and replace with:
+    "OutputDebug({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Pause,OnOffToggleOn2True,OperateOnUnderlyingThread " , <== Remove this autohotkey v1 and replace with:
+    "*_Pause" , <== this is the Autohotkey v2 that replaces the above code:
+    "PixelGetColor,OutputVar,XCBE2E,YCBE2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := PixelGetColor({2}, {3}, {4}) `;V1toV2: Switched from BGR to RGB values" , <== this is the Autohotkey v2 that replaces the above code:
+    "PixelSearch,OutputVarXV2VR,OutputVarYV2VR,X1CBE2E,Y1CBE2E,X2CBE2E,Y2CBE2E,ColorIDCBE2E,VariationCBE2E,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "ErrorLevel := !PixelSearch({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}) `;V1toV2: Switched from BGR to RGB values" , <== this is the Autohotkey v2 that replaces the above code:
+    "PostMessage,MsgCBE2E,wParamCBE2E,lParamCBE2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "PostMessage({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Process,SubCommand,PIDOrNameT2E,ValueT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_Process" , <== this is the Autohotkey v2 that replaces the above code:
+    "Progress, ProgressParam1,SubTextT2E,MainTextT2E,WinTitleT2E,FontNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_Progress" , <== this is the Autohotkey v2 that replaces the above code:
+    "Random,OutputVar,MinCBE2E,MaxCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_Random" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegRead,OutputVar,KeyName,ValueName,var4" , <== Remove this autohotkey v1 and replace with:
+    "*_RegRead" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegWrite,ValueTypeT2E,KeyNameT2E,var3T2E,var4T2E,var5T2E" , <== Remove this autohotkey v1 and replace with:
+    "*_RegWrite" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegDelete,var1,var2,var3" , <== Remove this autohotkey v1 and replace with:
+    "*_RegDelete" , <== this is the Autohotkey v2 that replaces the above code:
+    "Reload" , <== Remove this autohotkey v1 and replace with:
+    "Reload()" , <== this is the Autohotkey v2 that replaces the above code:
+    "RunAs,UserT2E,PasswordT2E,DomainT2E" , <== Remove this autohotkey v1 and replace with:
+    "RunAs({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Run,TargetT2E,WorkingDirT2E,OptionsT2E,OutputVarPIDV2VR" , <== Remove this autohotkey v1 and replace with:
+    "*_Run" , <== this is the Autohotkey v2 that replaces the above code:
+    "RunWait,TargetT2E,WorkingDirT2E,OptionsT2E,OutputVarPIDV2VR" , <== Remove this autohotkey v1 and replace with:
+    "RunWait({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetCapsLockState, StateT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetCapsLockState({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetControlDelay,DelayCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "SetControlDelay({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetEnv,var,valueT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := {2}" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetNumLockState, StateT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetNumLockState({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetKeyDelay,DelayCBE2E,PressDurationCBE2E,PlayT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetKeyDelay({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetMouseDelay,DelayCBE2E,PlayT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetMouseDelay({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetRegView, RegViewT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetRegView({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetScrollLockState, StateT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetScrollLockState({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetStoreCapsLockMode,OnOffOn2True" , <== Remove this autohotkey v1 and replace with:
+    "SetStoreCapsLockMode({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetTimer,LabelCBE2E,PeriodOnOffDeleteCBE2E,PriorityCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SetTimer" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetTitleMatchMode,MatchModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetTitleMatchMode({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetWinDelay,DelayCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "SetWinDelay({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetWorkingDir,DirNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetWorkingDir({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Send,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "Send({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendText,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendText({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendMode,ModeT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendMode({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendMessage,MsgCBE2E,wParamCBE2E,lParamCBE2E,ControlT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E,TimeoutCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SendMessage" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendInput,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendInput({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendLevel,LevelT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendLevel({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendRaw,keys" , <== Remove this autohotkey v1 and replace with:
+    "*_SendRaw" , <== this is the Autohotkey v2 that replaces the above code:
+    "SetDefaultMouseSpeed, LevelT2E" , <== Remove this autohotkey v1 and replace with:
+    "SetDefaultMouseSpeed({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendPlay,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendPlay({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendEvent,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendEvent({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SendEvent,keysT2E" , <== Remove this autohotkey v1 and replace with:
+    "SendEvent({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Shutdown, FlagCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "Shutdown({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Sleep,delayCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "Sleep({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Sort,var,optionsT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_Sort" , <== this is the Autohotkey v2 that replaces the above code:
+    "SoundBeep,FrequencyCBE2E,DurationCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "SoundBeep({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SoundGet,OutputVar,ComponentTypeT2E,ControlType,DeviceNumberT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SoundGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "SoundPlay,FrequencyT2E,DurationCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "SoundPlay({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SoundSet,NewSetting,ComponentTypeT2E,ControlType,DeviceNumberT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SoundSet" , <== this is the Autohotkey v2 that replaces the above code:
+    "SplashTextOn,Width,Height,TitleT2E,TextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SplashTextOn" , <== this is the Autohotkey v2 that replaces the above code:
+    "SplashTextOff" , <== Remove this autohotkey v1 and replace with:
+    "SplashTextGui.Destroy" , <== this is the Autohotkey v2 that replaces the above code:
+    "SplashImage,ImageFileT2E,Options,SubTextT2E,MainTextT2E,WinTitleT2E,FontNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SplashImage" , <== this is the Autohotkey v2 that replaces the above code:
+    "SplitPath,varCBE2E,filenameV2VR,dirV2VR,extV2VR,name_no_extV2VR,drvV2VR" , <== Remove this autohotkey v1 and replace with:
+    "SplitPath({1}, {2}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StatusBarGetText,Part,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := StatusBarGetText({2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StatusBarWait,BarTextT2E,Timeout,Part,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    " StatusBarWait({1}, {2}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringCaseSense,param" , <== Remove this autohotkey v1 and replace with:
+    ";REMOVED StringCaseSense, {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringGetPos,OutputVar,InputVar,SearchTextT2E,SideT2E,OffsetCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_StringGetPos" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringLen,OutputVar,InputVar" , <== Remove this autohotkey v1 and replace with:
+    "{1} := StrLen({2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringLeft,OutputVar,InputVar,CountCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := SubStr({2}, 1, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringMid,OutputVar,InputVar,StartCharCBE2E,CountCBE2E,L_T2E" , <== Remove this autohotkey v1 and replace with:
+    "*_StringMid" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringRight,OutputVar,InputVar,CountCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := SubStr({2}, -1*({3}))" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringSplit,OutputArray,InputVar,DelimitersT2E,OmitCharsT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_StringSplit" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringTrimLeft,OutputVar,InputVar,CountCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := SubStr({2}, ({3})+1)" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringTrimRight,OutputVar,InputVar,CountCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := SubStr({2}, 1, -1*({3}))" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringUpper,OutputVar,InputVar,TT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_StringUpper" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringLower,OutputVar,InputVar,TT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_StringLower" , <== this is the Autohotkey v2 that replaces the above code:
+    "StringReplace,OutputVar,InputVar,SearchTxtT2E,ReplTxtT2E,ReplAll" , <== Remove this autohotkey v1 and replace with:
+    "*_StringReplace" , <== this is the Autohotkey v2 that replaces the above code:
+    "Suspend,ModeOn2True" , <== Remove this autohotkey v1 and replace with:
+    "*_SuspendV2" , <== this is the Autohotkey v2 that replaces the above code:
+    "SysGet,OutputVar,SubCommand,ValueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "*_SysGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "Thread,SubCommandT2E,Value1CBE2E,Value2CBE2E" , <== Remove this autohotkey v1 and replace with:
+    "Thread({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ToolTip,txtT2E,xCBE2E,yCBE2E,whichCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "ToolTip({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "TrayTip,TitleT2E,TextT2E,Seconds,OptionsT2E" , <== Remove this autohotkey v1 and replace with:
+    "TrayTip({1}, {2}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Transform,OutputVar,SubCommand,Value1T2E,Value2T2E" , <== Remove this autohotkey v1 and replace with:
+    " *_Transform" , <== this is the Autohotkey v2 that replaces the above code:
+    "UrlDownloadToFile,URLT2E,FilenameT2E" , <== Remove this autohotkey v1 and replace with:
+    "Download({1},{2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinActivate,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinActivate({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinActivateBottom,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinActivateBottom({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinClose,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinClose({1}, {2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGet,OutputVar,SubCommand,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetActiveStats,TitleVar,WidthVar,HeightVar,XVar,YVar" , <== Remove this autohotkey v1 and replace with:
+    "*_WinGetActiveStats" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetActiveTitle,OutputVar" , <== Remove this autohotkey v1 and replace with:
+    '{1} := WinGetTitle("A")' , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetClass,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := WinGetClass({2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetText,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := WinGetText({2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetTitle,OutputVar,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "{1} := WinGetTitle({2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinGetPos,XV2VR,YV2VR,WidthV2VR,HeightV2VR,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinGetPos({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinHide,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinHide({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinKill,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinKill({1}, {2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinMaximize,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinMaximize({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinMinimize,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinMinimize({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinMove,val1,val2,XCBE2E,YCBE2E,WidthCBE2E,HeightCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinMove" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinMenuSelectItem,WinTitleT2E,WinTextT2E,MenuT2E,SubMenu1T2E,SubMenu2T2E,SubMenu3T2E,SubMenu4T2E,SubMenu5T2E,SubMenu6T2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "MenuSelect({1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinSet,SubCommand,ValueT2E,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinSet" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinSetTitle,WinTitleT2E,WinTextT2E,NewTitleT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinSetTitle" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinRestore,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinRestore({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinShow,WinTitleT2E,WinTextT2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "WinShow({1}, {2}, {3}, {4})" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinWait,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinWait" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinWaitActive,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinWaitActive" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinWaitNotActive,WinTitleT2E,WinTextT2E,TimeoutCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinWaitNotActive" , <== this is the Autohotkey v2 that replaces the above code:
+    "WinWaitClose,WinTitleT2E,WinTextT2E,SecondsToWaitCBE2E,ExcludeTitleT2E,ExcludeTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_WinWaitClose" , <== this is the Autohotkey v2 that replaces the above code:
+    "#ClipboardTimeout, MillisecondsCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#ClipboardTimeout {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#ErrorStdOut,EncodingCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#ErrorStdOut {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#HotkeyInterval,MillisecondsCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "A_HotkeyInterval := {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#HotkeyModifierTimeout,MillisecondsCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "A_HotkeyModifierTimeout := {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#HotString,ExpressionCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotString {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#If,ExpressionCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotIf {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IfTimeout,ExpressionCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotIfTimeout {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#Include,FileOrDirNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "#Include {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IncludeAgain,FileOrDirNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "#IncludeAgain {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#InputLevel,LevelCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#InputLevel {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IfWinActive,WinTitleT2E,WinTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "*_HashtagIfWinActivate" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IfWinExist,WinTitleT2E,WinTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotIf WinExist({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IfWinNotActive,WinTitleT2E,WinTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotIf !WinActive({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "#IfWinNotExist,WinTitleT2E,WinTextT2E" , <== Remove this autohotkey v1 and replace with:
+    "#HotIf !WinExist({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "#InputLevel,LevelCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#InputLevel {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#InstallKeybdHook" , <== Remove this autohotkey v1 and replace with:
+    "InstallKeybdHook()" , <== this is the Autohotkey v2 that replaces the above code:
+    "#InstallMouseHook" , <== Remove this autohotkey v1 and replace with:
+    "InstallMouseHook()" , <== this is the Autohotkey v2 that replaces the above code:
+    "#KeyHistory,MaxEventsCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "KeyHistory({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "#MaxHotkeysPerInterval,ValueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "A_MaxHotkeysPerInterval := {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#MaxThreads,ValueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#MaxThreads {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#MaxThreadsBuffer,OnOffOn2True" , <== Remove this autohotkey v1 and replace with:
+    "#MaxThreadsBuffer {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#MaxThreadsPerHotkey,ValueCBE2E" , <== Remove this autohotkey v1 and replace with:
+    "#MaxThreadsPerHotkey {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#MenuMaskKey,KeyNameT2E" , <== Remove this autohotkey v1 and replace with:
+    "A_MenuMaskKey := {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#Persistent" , <== Remove this autohotkey v1 and replace with:
+    "Persistent" , <== this is the Autohotkey v2 that replaces the above code:
+    "#Requires,AutoHotkey Version" , <== Remove this autohotkey v1 and replace with:
+    "#Requires Autohotkey v2.0" , <== this is the Autohotkey v2 that replaces the above code:
+    "#SingleInstance, ForceIgnorePromptOff" , <== Remove this autohotkey v1 and replace with:
+    "#SingleInstance {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#UseHook,OnOffOn2True" , <== Remove this autohotkey v1 and replace with:
+    "#UseHook {1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "#Warn,WarningType,WarningMode" , <== Remove this autohotkey v1 and replace with:
     "#Warn {1}, {2}"
   )
   
   
   
 /* a list of all renamed functions, in this format:
-    , "OrigV1Function" ,
+    , "OrigV1Function" , <== Remove this autohotkey v1 and replace with:
       "ReplacementV2Function"
     ↑ first comma is not needed for the first pair
   Similar to commands, parameters can be added
@@ -473,129 +473,128 @@ global CommandsToConvertM := OrderedMap(
 */
 
 global FunctionsToConvertM := OrderedMap(
-    "ComObject(vt, value, Flags)" ,
-    "ComValue({1}, {2}, {3})"
-  , "ComObjCreate(CLSID , IID)" ,
-     "ComObject({1}, {2})"
-  , "DllCall(DllFunction,Type1,Arg1,val*)" ,
-     "*_DllCall"
-  , "Func(FunctionNameQ2T)" ,
-     "{1}"
-  , "InStr(Haystack,Needle,CaseSensitive,StartingPos,Occurrence)" ,
-    "InStr({1}, {2}, {3}, {4}, {5})"
-  , "RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos)" ,
-    "*_RegExMatch"
-  , "RegExReplace(Haystack,NeedleRegEx,Replacement,OutputVarCountV2VR,Limit,StartingPos)" ,
-    "RegExReplace({1}, {2}, {3}, {4}, {5}, {6})"
-  , "StrReplace(Haystack,Needle,ReplaceText,OutputVarCountV2VR,Limit)" ,
-    "StrReplace({1}, {2}, {3}, , {4}, {5})"
-  , "SubStr(String, StartingPos, Length)" ,
-    "SubStr({1}, {2}, {3})"
-  , "RegisterCallback(FunctionNameQ2T,Options,ParamCount,EventInfo)" ,
-    "CallbackCreate({1}, {2}, {3})"
-  , "LoadPicture(Filename,Options,ImageTypeV2VR)" ,
-     "LoadPicture({1},{2},{3})"
-  , "LV_Add(Options, Field*)" ,
-     "*_LV_Add"
-  , "LV_Delete(RowNumber)" ,
-     "*_LV_Delete"
-  , "LV_DeleteCol(ColumnNumber)" ,
-     "*_LV_DeleteCol"
-  , "LV_GetCount(ColumnNumber)" ,
-     "*_LV_GetCount"
-  , "LV_GetText(OutputVar, RowNumber, ColumnNumber)" ,
-     "*_LV_GetText"
-  , "LV_GetNext(StartingRowNumber, RowType)" ,
-     "*_LV_GetNext"
-  , "LV_InsertCol(ColumnNumber , Options, ColumnTitle)" ,
-     "*_LV_InsertCol"
-  , "LV_Insert(RowNumber, Options, Field*)" ,
-     "*_LV_Insert"
-  , "LV_Modify(RowNumber, Options, Field*)" ,
-     "*_LV_Modify"
-  , "LV_ModifyCol(ColumnNumber, Options, ColumnTitle)" ,
-     "*_LV_ModifyCol"
-  , "LV_SetImageList(ImageListID, IconType)" ,
-     "*_LV_SetImageList"
-  , "TV_Add(Name,ParentItemID,Options)" ,
-     "*_TV_Add"
-  , "TV_Modify(ItemID,Options,NewName)" ,
-     "*_TV_Modify"
-  , "TV_Delete(ItemID)" ,
-     "*_TV_Delete"
-  , "TV_GetSelection(ItemID)" ,
-     "*_TV_GetSelection"
-  , "TV_GetParent(ItemID)" ,
-     "*_TV_GetParent"
-  , "TV_GetPrev(ItemID)" ,
-     "*_TV_GetPrev"
-  , "TV_GetNext(ItemID,ItemType)" ,
-     "*_TV_GetNext"
-  , "TV_GetText(OutputVar,ItemID)" ,
-     "*_TV_GetText"
-  , "TV_GetChild(ParentItemID)" ,
-     "*_TV_GetChild"
-  , "TV_GetCount()" ,
-     "*_TV_GetCount"
-  , "TV_SetImageList(ImageListID,IconType)" ,
-     "*_TV_SetImageList"
-  , "SB_SetText(NewText,PartNumber,Style)" ,
-     "*_SB_SetText"
-  , "SB_SetParts(NewText,PartNumber,Style)" ,
-     "*_SB_SetParts"
-  , "SB_SetIcon(Filename,IconNumber,PartNumber)" ,
-     "*_SB_SetIcon"
-  , "MenuGetHandle(MenuNameQ2T)" ,
-     "{1}.Handle"
-  , "MenuGetName(Handle)" ,
-     "MenuFromHandle({1})"
-  , "NumGet(VarOrAddress,Offset,Type)" ,
-     "*_NumGet"
-  , "NumPut(Number,VarOrAddress,Offset,Type)" ,
-     "*_NumPut"
-  , "Object(Array*)" ,
-     "*_Object"
-  , "OnError(FuncQ2T,AddRemove)" ,
-     "OnError({1}, {2})"
-  , "OnMessage(MsgNumber, FunctionQ2T, MaxThreads)" ,
-     "OnMessage({1}, {2}, {3})"
-  , "OnClipboardChange(FuncQ2T,AddRemove)" ,
-     "OnClipboardChange({1}, {2})"
-  , "Asc(String)" ,
-     "Ord({1})"
-  , "VarSetCapacity(TargetVar,RequestedCapacity,FillByte)^(\s*[*+\-\/][\/]?)(\s*[.\d]{1,})(\s*[*+\-\/])?" ,
+    "ComObject(vt, value, Flags)" , <== Remove this autohotkey v1 and replace with:
+    "ComValue({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "ComObjCreate(CLSID , IID)" , <== Remove this autohotkey v1 and replace with:
+     "ComObject({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "DllCall(DllFunction,Type1,Arg1,val*)" , <== Remove this autohotkey v1 and replace with:
+     "*_DllCall" , <== this is the Autohotkey v2 that replaces the above code:
+    "Func(FunctionNameQ2T)" , <== Remove this autohotkey v1 and replace with:
+     "{1}" , <== this is the Autohotkey v2 that replaces the above code:
+    "InStr(Haystack,Needle,CaseSensitive,StartingPos,Occurrence)" , <== Remove this autohotkey v1 and replace with:
+    "InStr({1}, {2}, {3}, {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos)" , <== Remove this autohotkey v1 and replace with:
+    "*_RegExMatch" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegExReplace(Haystack,NeedleRegEx,Replacement,OutputVarCountV2VR,Limit,StartingPos)" , <== Remove this autohotkey v1 and replace with:
+    "RegExReplace({1}, {2}, {3}, {4}, {5}, {6})" , <== this is the Autohotkey v2 that replaces the above code:
+    "StrReplace(Haystack,Needle,ReplaceText,OutputVarCountV2VR,Limit)" , <== Remove this autohotkey v1 and replace with:
+    "StrReplace({1}, {2}, {3}, , {4}, {5})" , <== this is the Autohotkey v2 that replaces the above code:
+    "SubStr(String, StartingPos, Length)" , <== Remove this autohotkey v1 and replace with:
+    "SubStr({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "RegisterCallback(FunctionNameQ2T,Options,ParamCount,EventInfo)" , <== Remove this autohotkey v1 and replace with:
+    "CallbackCreate({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "LoadPicture(Filename,Options,ImageTypeV2VR)" , <== Remove this autohotkey v1 and replace with:
+     "LoadPicture({1},{2},{3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_Add(Options, Field*)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_Add" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_Delete(RowNumber)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_Delete" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_DeleteCol(ColumnNumber)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_DeleteCol" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_GetCount(ColumnNumber)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_GetCount" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_GetText(OutputVar, RowNumber, ColumnNumber)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_GetText" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_GetNext(StartingRowNumber, RowType)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_GetNext" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_InsertCol(ColumnNumber , Options, ColumnTitle)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_InsertCol" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_Insert(RowNumber, Options, Field*)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_Insert" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_Modify(RowNumber, Options, Field*)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_Modify" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_ModifyCol(ColumnNumber, Options, ColumnTitle)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_ModifyCol" , <== this is the Autohotkey v2 that replaces the above code:
+    "LV_SetImageList(ImageListID, IconType)" , <== Remove this autohotkey v1 and replace with:
+     "*_LV_SetImageList" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_Add(Name,ParentItemID,Options)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_Add" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_Modify(ItemID,Options,NewName)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_Modify" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_Delete(ItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_Delete" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetSelection(ItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetSelection" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetParent(ItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetParent" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetPrev(ItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetPrev" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetNext(ItemID,ItemType)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetNext" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetText(OutputVar,ItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetText" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetChild(ParentItemID)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetChild" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_GetCount()" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_GetCount" , <== this is the Autohotkey v2 that replaces the above code:
+    "TV_SetImageList(ImageListID,IconType)" , <== Remove this autohotkey v1 and replace with:
+     "*_TV_SetImageList" , <== this is the Autohotkey v2 that replaces the above code:
+    "SB_SetText(NewText,PartNumber,Style)" , <== Remove this autohotkey v1 and replace with:
+     "*_SB_SetText" , <== this is the Autohotkey v2 that replaces the above code:
+    "SB_SetParts(NewText,PartNumber,Style)" , <== Remove this autohotkey v1 and replace with:
+     "*_SB_SetParts" , <== this is the Autohotkey v2 that replaces the above code:
+    "SB_SetIcon(Filename,IconNumber,PartNumber)" , <== Remove this autohotkey v1 and replace with:
+     "*_SB_SetIcon" , <== this is the Autohotkey v2 that replaces the above code:
+    "MenuGetHandle(MenuNameQ2T)" , <== Remove this autohotkey v1 and replace with:
+     "{1}.Handle" , <== this is the Autohotkey v2 that replaces the above code:
+    "MenuGetName(Handle)" , <== Remove this autohotkey v1 and replace with:
+     "MenuFromHandle({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "NumGet(VarOrAddress,Offset,Type)" , <== Remove this autohotkey v1 and replace with:
+     "*_NumGet" , <== this is the Autohotkey v2 that replaces the above code:
+    "NumPut(Number,VarOrAddress,Offset,Type)" , <== Remove this autohotkey v1 and replace with:
+     "*_NumPut" , <== this is the Autohotkey v2 that replaces the above code:
+    "Object(Array*)" , <== Remove this autohotkey v1 and replace with:
+     "*_Object" , <== this is the Autohotkey v2 that replaces the above code:
+    "OnError(FuncQ2T,AddRemove)" , <== Remove this autohotkey v1 and replace with:
+     "OnError({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "OnMessage(MsgNumber, FunctionQ2T, MaxThreads)" , <== Remove this autohotkey v1 and replace with:
+     "OnMessage({1}, {2}, {3})" , <== this is the Autohotkey v2 that replaces the above code:
+    "OnClipboardChange(FuncQ2T,AddRemove)" , <== Remove this autohotkey v1 and replace with:
+     "OnClipboardChange({1}, {2})" , <== this is the Autohotkey v2 that replaces the above code:
+    "Asc(String)" , <== Remove this autohotkey v1 and replace with:
+     "Ord({1})" , <== this is the Autohotkey v2 that replaces the above code:
+    "VarSetCapacity(TargetVar,RequestedCapacity,FillByte)^(\s*[*+\-\/][\/]?)(\s*[.\d]{1,})(\s*[*+\-\/])?" , <== Remove this autohotkey v1 and replace with:
     "*_VarSetCapacity"
   )
   
   
   
 /* a list of all renamed variables, in this format:
-    , "OrigVar" ,
+    , "OrigVar" , <== Remove this autohotkey v1 and replace with:
       "ReplacementVar"
     ↑ first comma is not needed for the first pair
   important: the order matters. the first 2 in the list could cause a mistake if not ordered properly
 */
 
 global KeywordsToRenameM := OrderedMap(
-    "A_LoopFileFullPath" ,
-    "A_LoopFilePath"
-  , "A_LoopFileLongPath" ,
-    "A_LoopFileFullPath"
-  , "ComSpec" ,
-    "A_ComSpec"
-  , "Clipboard" ,
-    "A_Clipboard"
-  , "ClipboardAll" ,
-    "ClipboardAll()"
-  , "ComObjParameter()" ,
-    "ComObject()"
-  , "A_isUnicode" ,
-    "1"
-  , "A_LoopRegKey `"\`" A_LoopRegSubKey" ,
-    "A_LoopRegKey"
-  , "A_LoopRegKey . `"\`" . A_LoopRegSubKey" ,
-    "A_LoopRegKey"
-  , "%A_LoopRegKey%\%A_LoopRegSubKey%" ,
+    "A_LoopFileFullPath" , <== Remove this autohotkey v1 and replace with:
+    "A_LoopFilePath" , <== this is the Autohotkey v2 that replaces the above code:
+    "A_LoopFileLongPath" , <== Remove this autohotkey v1 and replace with:
+    "A_LoopFileFullPath" , <== this is the Autohotkey v2 that replaces the above code:
+    "ComSpec" , <== Remove this autohotkey v1 and replace with:
+    "A_ComSpec" , <== this is the Autohotkey v2 that replaces the above code:
+    "Clipboard" , <== Remove this autohotkey v1 and replace with:
+    "A_Clipboard" , <== this is the Autohotkey v2 that replaces the above code:
+    "ClipboardAll" , <== Remove this autohotkey v1 and replace with:
+    "ClipboardAll()" , <== this is the Autohotkey v2 that replaces the above code:
+    "ComObjParameter()" , <== Remove this autohotkey v1 and replace with:
+    "ComObject()" , <== this is the Autohotkey v2 that replaces the above code:
+    "A_isUnicode" , <== Remove this autohotkey v1 and replace with:
+    "1" , <== this is the Autohotkey v2 that replaces the above code:
+    "A_LoopRegKey `"\`" A_LoopRegSubKey" , <== Remove this autohotkey v1 and replace with:
+    "A_LoopRegKey" , <== this is the Autohotkey v2 that replaces the above code:
+    "A_LoopRegKey . `"\`" . A_LoopRegSubKey" , <== Remove this autohotkey v1 and replace with:
+    "A_LoopRegKey" , <== this is the Autohotkey v2 that replaces the above code:
+    "%A_LoopRegKey%\%A_LoopRegSubKey%" , <== Remove this autohotkey v1 and replace with:
     "%A_LoopRegKey%"
   )
-
