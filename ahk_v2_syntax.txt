@@ -1,0 +1,549 @@
+Library
+Removed:
+
+Asc() (use Ord)
+AutoTrim (use Trim)
+ComObjMissing() (write two consecutive commas instead)
+ComObjUnwrap() (use ComObjValue instead, and ObjAddRef if needed)
+ComObjEnwrap() (use ComObjFromPtr instead, and ObjAddRef if needed)
+ComObjError()
+ComObjXXX() where XXX is anything other than one of the explicitly defined ComObj functions (use ComObjActive, ComValue or ComObjFromPtr instead).
+ControlSendRaw (use ControlSend "{Raw}" or ControlSendText instead)
+EnvDiv
+EnvMult
+EnvUpdate (it is of very limited usefulness and can be replaced with a simple SendMessage)
+Exception (use Error or an appropriate subclass)
+FileReadLine (use a file-reading loop or FileOpen)
+Func (use a direct reference like MyFunc)
+Gosub
+Gui, GuiControl, GuiControlGet (see Gui)
+IfEqual
+IfExist
+IfGreater
+IfGreaterOrEqual
+IfInString
+IfLess
+IfLessOrEqual
+IfMsgBox (MsgBox now returns the button name)
+IfNotEqual
+IfNotExist
+IfNotInString
+IfWinActive
+IfWinExist
+IfWinNotActive
+IfWinNotExist
+If between/is/in/contains (but see isXXX)
+Input (use InputHook)
+IsFunc
+Menu (use the Menu/MenuBar class, TraySetIcon, A_IconTip, A_IconHidden and A_AllowMainWindow)
+MenuGetHandle (use Menu.Handle)
+MenuGetName (there are no menu names; MenuFromHandle is the closest replacement)
+Progress (use Gui)
+SendRaw (use Send "{Raw}" or SendText instead)
+SetBatchLines (-1 is now the default behaviour)
+SetEnv
+SetFormat (Format can be used to format a string)
+SoundGet/SoundSet (see Sound functions)
+SoundGetWaveVolume/SoundSetWaveVolume (slightly different behaviour to SoundGet/SoundSet regarding balance, but neither one preserves balance)
+SplashImage (use Gui)
+SplashTextOn/Off (use Gui)
+StringCaseSense (use various parameters)
+StringGetPos (use InStr)
+StringLeft
+StringLen
+StringMid
+StringRight
+StringTrimLeft
+StringTrimRight -- use SubStr in place of these commands.
+StringReplace (use StrReplace instead)
+StringSplit (use StrSplit instead)
+Transform
+VarSetCapacity (use a Buffer object for binary data/structs and VarSetStrCapacity for UTF-16 strings)
+WinGetActiveStats
+WinGetActiveTitle
+#CommentFlag
+#Delimiter
+#DerefChar
+#EscapeChar
+#HotkeyInterval (use A_HotkeyInterval)
+#HotkeyModifierTimeout (use A_HotkeyModifierTimeout)
+#IfWinActive, #IfWinExist, #IfWinNotActive, #IfWinNotExist (see #HotIf Optimization)
+#InstallKeybdHook (use the InstallKeybdHook function)
+#InstallMouseHook (use the InstallMouseHook function)
+#KeyHistory (use KeyHistory N)
+#LTrim
+#MaxHotkeysPerInterval (use A_MaxHotkeysPerInterval)
+#MaxMem (maximum capacity of each variable is now unlimited)
+#MenuMaskKey (use A_MenuMaskKey)
+#NoEnv (now default behaviour)
+Renamed:
+
+ComObjCreate() → ComObject, which is a class now
+ComObjParameter() → ComValue, which is a class now
+DriveSpaceFree → DriveGetSpaceFree
+EnvAdd → DateAdd
+EnvSub → DateDiff
+FileCopyDir → DirCopy
+FileCreateDir → DirCreate
+FileMoveDir → DirMove
+FileRemoveDir → DirDelete
+FileSelectFile → FileSelect
+FileSelectFolder → DirSelect
+#If → #HotIf
+#IfTimeout → HotIfTimeout
+StringLower → StrLower and StrTitle
+StringUpper → StrUpper and StrTitle
+UrlDownloadToFile → Download
+WinMenuSelectItem → MenuSelect
+LV, TV and SB functions → methods of GuiControl
+File.__Handle → File.Handle
+Removed Commands (Details)
+See above for the full list.
+
+EnvUpdate was removed, but can be replaced with a simple call to SendMessage as follows:
+
+SendMessage(0x1A, 0, StrPtr("Environment"), 0xFFFF)
+StringCaseSense was removed, so != is always case-insensitive (but !== was added for case-sensitive not-equal), and both = and != only ignore case for ASCII characters. StrCompare was added for comparing strings using any mode. Various string functions now have a CaseSense parameter which can be used to specify case-sensitivity or the locale mode.
+
+Modified Commands/Functions
+About the section title: there are no commands in v2, just functions. The title refers to both versions.
+
+BlockInput is no longer momentarily disabled whenever an Alt event is sent with the SendEvent method. This was originally done to work around a bug in some versions of Windows XP, where BlockInput blocked the artificial Alt event.
+
+Chr(0) returns a string of length 1, containing a binary zero. This is a result of improved support for binary zero in strings.
+
+ClipWait now returns 0 if the wait period expires, otherwise 1. ErrorLevel was removed. Specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.
+
+ComObj(): This function had a sort of wildcard name, allowing many different suffixes. Some names were more commonly used with specific types of parameters, such as ComObjActive(CLSID), ComObjParameter(vt, value), ComObjEnwrap(dsp). There are instead now separate functions/classes, and no more wildcard names. See COM Objects (ComObject) for details.
+
+Control: Several changes have been made to the Control parameter used by the Control functions, SendMessage and PostMessage:
+
+It can now accept a HWND (must be a pure integer) or an object with a Hwnd property, such as a GuiControl object. The HWND can identify a control or a top-level window, though the latter is usually only meaningful for a select few functions (see below).
+It is no longer optional, except with functions which can operate on a top-level window (ControlSend[Text], ControlClick, SendMessage, PostMessage) or when preceded by other optional parameters (ListViewGetContent, ControlGetPos, ControlMove).
+If omitted, the target window is used instead. This matches the previous behaviour of SendMessage/PostMessage, and replaces the ahk_parent special value previously used by ControlSend.
+Blank values are invalid. Functions never default to the target window's topmost control.
+ControlGetFocus now returns the control's HWND instead of its ClassNN, and no longer considers there to be an error when it has successfully determined that the window has no focused control.
+
+ControlMove, ControlGetPos and ControlClick now use client coordinates (like GuiControl) instead of window coordinates. Client coordinates are relative to the top-left of the client area, which excludes the window's title bar and borders. (Controls are rendered only inside the client area.)
+
+ControlMove, ControlSend and ControlSetText now use parameter order consistent with the other Control functions; i.e. Control, WinTitle, WinText, ExcludeTitle, ExcludeText are always grouped together (at the end of the parameter list), to aide memorisation.
+
+CoordMode no longer accepts "Relative" as a mode, since all modes are relative to something. It was synonymous with "Window", so use that instead.
+
+DllCall: See DllCall section further below.
+
+Edit previously had fallback behaviour for the .ini file type if the "edit" shell verb was not registered. This was removed as script files are not expected to have the .ini extension. AutoHotkey.ini was the default script name in old versions of AutoHotkey.
+
+Edit now does nothing if the script was read from stdin, instead of attempting to open an editor for *.
+
+EnvSet now deletes the environment variable if the value parameter is completely omitted.
+
+Exit previously acted as ExitApp when the script is not persistent, even if there were other suspended threads interrupted by the thread which called Exit. It no longer does this. Instead, it always exits the current thread properly, and (if non-persistent) the script terminates only after the last thread exits. This ensures finally statements are executed and local variables are freed, which may allow __delete to be called for any objects contained by local variables.
+
+FileAppend defaults to no end-of-line translations, consistent with FileRead and FileOpen. FileAppend and FileRead both have a separate Options parameter which replaces the option prefixes and may include an optional encoding name (superseding FileRead's *Pnnn option). FileAppend, FileRead and FileOpen use "`n" to enable end-of-line translations. FileAppend and FileRead support an option "RAW" to disable codepage conversion (read/write binary data); FileRead returns a Buffer object in this case. This replaces *c (see ClipboardAll in the documentation). FileAppend may accept a Buffer-like object, in which case no conversions are performed.
+
+FileCopy and FileMove now throw an exception if the source path does not contain * or ? and no file was not found. However, it is still not considered an error to copy or move zero files when the source path contains wildcards.
+
+FileOpen now throws an exception if it fails to open the file. Otherwise, an exception would be thrown (if the script didn't check for failure) by the first attempt to access the object, rather than at the actual point of failure.
+
+File.RawRead: When a variable is passed directly, the address of the variable's internal string buffer is no longer used. Therefore, a variable containing an address may be passed directly (whereas in v1, something like var+0 was necessary).
+
+For buffers allocated by the script, the new Buffer object is preferred over a variable; any object can be used, but must have Ptr and Size properties.
+
+File.RawWrite: As above, except that it can accept a string (or variable containing a string), in which case Bytes defaults to the size of the string in bytes. The string may contain binary zero.
+
+File.ReadLine now always supports `r, `n and `r`n as line endings, and no longer includes the line ending in the return value. Line endings are still returned to the script as-is by File.Read if EOL translation is not enabled.
+
+FileEncoding now allows code pages to be specified by number without the CP prefix. Its parameter is no longer optional, but can still be explicitly blank.
+
+FileExist now ignores the . and .. implied in every directory listing, so FileExist("dir\*") is now false instead of true when dir exists but is empty.
+
+FileGetAttrib and A_LoopFileAttrib now include the letter "L" for reparse points or symbolic links.
+
+FileInstall in a non-compiled script no longer attempts to copy the file if source and destination are the same path (after resolving relative paths, as the source is relative to A_ScriptDir, not A_WorkingDir). In v1 this caused ErrorLevel to be set to 1, which mostly went unnoticed. Attempting to copy a file onto itself via two different paths still causes an error.
+
+FileSelectFile (now named FileSelect) had two multi-select modes, accessible via options 4 and M. Option 4 and the corresponding mode have been removed; they had been undocumented for some time. FileSelect now returns an Array of paths when the multi-select mode is used, instead of a string like C:\Dir`nFile1`nFile2. Each array element contains the full path of a file. If the user cancels, the array is empty.
+
+FileSelect now uses the IFileDialog API present in Windows Vista and later, instead of the old GetOpenFileName/GetSaveFileName API. This removes the need for (built-in) workarounds relating to the dialog changing the current working directory.
+
+FileSelect no longer has a redundant "Text Documents (*.txt)" filter by default when Filter is omitted.
+
+FileSelect no longer strips spaces from the filter pattern, such as for pattern with spaces*.ext. Testing indicates spaces on either side of the pattern (such as after the semi-colon in *.cpp; *.h) are already ignored by the OS, so there should be no negative consequences.
+
+FileSelect can now be used in "Select Folder" mode via the D option letter.
+
+FileSetAttrib now overwrites attributes when no +, - or ^ prefix is present, instead of doing nothing. For example, FileSetAttrib(FileGetAttrib(file2), file1) copies the attributes of file2 to file1 (adding any that file2 have and removing any that it does not have).
+
+FileSetAttrib and FileSetTime: the OperateOnFolders? and Recurse? parameters have been replaced with a single Mode parameter identical to that of Loop Files. For example, FileSetAttrib("+a", "*.zip", "RF") (Recursively operate on Files only).
+
+GetKeyName now returns the non-Numpad names for VK codes that correspond to both a Numpad and a non-Numpad key. For instance, GetKeyName("vk25") returns Left instead of NumpadLeft.
+
+GetKeyState now always returns 0 or 1.
+
+GroupActivate now returns the HWND of the window which was selected for activation, or 0 if there were no matches (aside from the already-active window), instead of setting ErrorLevel.
+
+GroupAdd: Removed the Label parameter and related functionality. This was an unintuitive way to detect when GroupActivate fails to find any matching windows; GroupActivate's return value should be used instead.
+
+GroupDeactivate now selects windows in a manner closer to the Alt+Esc and Alt+Shift+Esc system hotkeys and the taskbar. Specifically,
+
+Owned windows are not evaluated. If the owner window is eligible (not a match for the group), either the owner window or one of its owned windows is activated; whichever was active last. A window owned by a group member will no longer be activated, but adding the owned window itself to the group now has no effect. (The previous behaviour was to cycle through every owned window and never activate the owner.)
+Any disabled window is skipped, unless one of its owned windows was active more recently than it.
+Windows with the WS_EX_NOACTIVATE style are skipped, since they are probably not supposed to be activated. They are also skipped by the Alt+Esc and Alt+Shift+Esc system hotkeys.
+Windows with WS_EX_TOOLWINDOW but not WS_EX_APPWINDOW are omitted from the taskbar and Alt-Tab, and are therefore skipped.
+Hotkey no longer defaults to the script's bottommost #HotIf (formerly #If). Hotkey/hotstring and HotIf threads default to the same criterion as the hotkey, so Hotkey A_ThisHotkey, "Off" turns off the current hotkey even if it is context-sensitive. All other threads default to the last setting used by the auto-execute section, which itself defaults to no criterion (global hotkeys).
+
+Hotkey's Callback parameter now requires a function object or hotkey name. Labels and function names are no longer supported. If a hotkey name is specified, the original function of that hotkey is used; and unlike before, this works with #HotIf (formerly #If).
+
+Among other benefits, this eliminates ambiguity with the following special strings: On, Off, Toggle, AltTab, ShiftAltTab, AltTabAndMenu, AltTabMenuDismiss. The old behaviour was to use the label/function by that name if one existed, but only if the Label parameter did not contain a variable reference or expression.
+Hotkey and Hotstring now support the S option to make the hotkey/hostring exempt from Suspend (equivalent to the new #SuspendExempt directive), and the S0 option to disable exemption.
+
+"Hotkey If" and the other If sub-commands were replaced with individual functions: HotIf, HotIfWinActive, HotIfWinExist, HotIfWinNotActive, HotIfWinNotExist.
+
+HotIf (formerly "Hotkey If") now recognizes expressions which use the and or or operators. This did not work in v1 as these operators were replaced with && or || at load time.
+
+Hotkey no longer has a UseErrorLevel option, and never sets ErrorLevel. An exception is thrown on failure. Error messages were changed to be constant (and shorter), with the key or hotkey name in Exception.Extra, and the class of the exception indicating the reason for failure.
+
+#HotIf (formerly #If) now implicitly creates a function with one parameter (ThisHotkey). As is the default for all functions, this function is assume-local. The expression can create local variables and read global variables, but cannot directly assign to global variables as the expression cannot contain declarations.
+
+#HotIf has been optimized so that simple calls to WinActive or WinExist can be evaluated directly by the hook thread (as #IfWin was in v1, and HotIfWin still is). This improves performance and reduces the risk of problems when the script is busy/unresponsive. This optimization applies to expressions which contain a single call to WinActive or WinExist with up to two parameters, where each parameter is a simple quoted string and the result is optionally inverted with ! or not. For example, #HotIf WinActive("Chrome") or #HotIf !WinExist("Popup"). In these cases, the first expression with any given combination of criteria can be identified by either the expression or the window criteria. For example, HotIf '!WinExist("Popup")' and HotIfWinNotExist "Popup" refer to the same hotkey variants.
+
+KeyHistory N resizes the key history buffer instead of displaying the key history. This replaces "#KeyHistory N".
+
+ImageSearch returns true if the image was found, false if it was not found, or throws an exception if the search could not be conducted. ErrorLevel is not set.
+
+IniDelete, IniRead and IniWrite set A_LastError to the result of the operating system's GetLastError() function.
+
+IniRead throws an exception if the requested key, section or file cannot be found and the Default parameter was omitted. If Default is given a value, even "", no exception is thrown.
+
+InputHook now treats Shift+Backspace the same as Backspace, instead of transcribing it to `b.
+
+InputBox has been given a syntax overhaul to make it easier to use (with fewer parameters). See InputBox for usage.
+
+InStr's CaseSensitive parameter has been replaced with CaseSense, which can be 0, 1 or "Locale".
+
+InStr now searches right-to-left when Occurrence is negative (which previously caused a result of 0), and no longer searches right-to-left if a negative StartingPos is used with a positive Occurrence. (However, it still searches right-to-left if StartingPos is negative and Occurrence is omitted.) This facilitates right-to-left searches in a loop, and allows a negative StartingPos to be used while still searching left-to-right.
+
+For example, InStr(a, b,, -1, 2) now searches left-to-right. To instead search right-to-left, use InStr(a, b,, -1, -2).
+Note that a StartingPos of -1 means the last character in v2, but the second last character in v1. If the example above came from v1 (rather than v2.0-a033 - v2.0-a136), the new code should be InStr(a, b, -2, -2).
+KeyWait now returns 0 if the wait period expires, otherwise 1. ErrorLevel was removed.
+
+MouseClick and MouseClickDrag are no longer affected by the system setting for swapped mouse buttons; "Left" is the always the primary button and "Right" is the secondary.
+
+MsgBox has had its syntax changed to prioritise its most commonly used parameters and improve ease of use. See MsgBox further below for a summary of usage.
+
+NumPut/NumGet: When a variable is passed directly, the address of the variable's internal string buffer is no longer used. Therefore, a variable containing an address may be passed directly (whereas in v1, something like var+0 was necessary). For buffers allocated by the script, the new Buffer object is preferred over a variable; any object can be used, but must have Ptr and Size properties.
+
+NumPut's parameters were reordered to allow a sequence of values, with the (now mandatory) type string preceding each number. For example: NumPut("ptr", a, "int", b, "int", c, addrOrBuffer, offset). Type is now mandatory for NumGet as well. (In comparison to DllCall, NumPut's input parameters correspond to the dll function's parameters, while NumGet's return type parameter corresponds to the dll function's return type string.)
+
+The use of Object(obj) and Object(ptr) to convert between a reference and a pointer was shifted to separate functions, ObjPtrAddRef(obj) and ObjFromPtrAddRef(ptr). There are also versions of these functions that do not increment the reference count: ObjPtr(obj) and ObjFromPtr(ptr).
+
+The OnClipboardChange label is no longer called automatically if it exists. Use the OnClipboardChange function which was added in v1.1.20 instead. It now requires a function object, not a name.
+
+OnError now requires a function object, not a name. See also Error Handling further below.
+
+The OnExit command has been removed; use the OnExit function which was added in v1.1.20 instead. It now requires a function object, not a name. A_ExitReason has also been removed; its value is available as a parameter of the OnExit callback function.
+
+OnMessage no longer has the single-function-per-message mode that was used when a function name (string) was passed; it now only accepts a function by reference. Use OnMessage(x, MyFunc) where MyFunc is literally the name of a function, but note that the v1 equivalent would be OnMessage(x, Func("MyFunc")), which allows other functions to continue monitoring message x, unlike OnMessage(x, "MyFunc"). To stop monitoring the message, use OnMessage(x, MyFunc, 0) as OnMessage(x, "") and OnMessage(x) are now errors. On failure, OnMessage throws an exception.
+
+Pause is no longer exempt from #MaxThreadsPerHotkey when used on the first line of a hotkey, so #p::Pause is no longer suitable for toggling pause. Therefore, Pause() now only pauses the current thread (for combinations like ListVars/Pause), while Pause(v) now always operates on the underlying thread. v must be 0, 1 or -1. The second parameter was removed.
+
+PixelSearch and PixelGetColor use RGB values instead of BGR, for consistency with other functions. Both functions throw an exception if a problem occurs, and no longer set ErrorLevel. PixelSearch returns true if the color was found. PixelSearch's slow mode was removed, as it is unusable on most modern systems due to an incompatibility with desktop composition.
+
+PostMessage: See SendMessage further below.
+
+Random has been reworked to utilize the operating system's random number generator, lift several restrictions, and make it more convenient to use.
+
+The full 64-bit range of signed integer values is now supported (increased from 32-bit).
+Floating-point numbers are generated from a 53-bit random integer, instead of a 32-bit random integer, and should be greater than or equal to Min and lesser than Max (but floating-point rounding errors can theoretically produce equal to Max).
+The parameters could already be specified in any order, but now specifying only the first parameter defaults the other bound to 0 instead of 2147483647. For example, Random(9) returns a number between 0 and 9.
+If both parameters are omitted, the return value is a floating-point number between 0.0 (inclusive) and 1.0 (generally exclusive), instead of an integer between 0 and 2147483647 (inclusive).
+The system automatically seeds the random number generator, and does not provide a way to manually seed it, so there is no replacement for the NewSeed parameter.
+RegExMatch options O and P were removed; O (object) mode is now mandatory. The RegExMatch object now supports enumeration (for-loop). The match object's syntax has changed:
+
+__Get is used to implement the shorthand match.subpat where subpat is the name of a subpattern/capturing group. As __Get is no longer called if a property is inherited, the following subpattern names can no longer be used with the shorthand syntax: Pos, Len, Name, Count, Mark. (For example, match.Len always returns the length of the overall match, not a captured string.)
+Originally the match object had methods instead of properties so that properties could be reserved for subpattern names. As new language behaviour implies that match.name would return a function by default, the methods have been replaced or supplemented with properties:
+Pos, Len and Name are now properties and methods.
+Name now requires 1 parameter to avoid confusion (match.Name throws an error).
+Count and Mark are now only properties.
+Value has been removed; use match.0 or match[] instead of match.Value(), and match[N] instead of match.Value(N).
+RegisterCallback was renamed to CallbackCreate and changed to better utilize closures:
+
+It now supports function objects (and no longer supports function names).
+Removed EventInfo parameter (use a closure or bound function instead).
+Removed the special behaviour of variadic callback functions and added the & option (pass the address of the parameter list).
+Added CallbackFree(Address), to free the callback memory and release the associated function object.
+Registry functions (RegRead, RegWrite, RegDelete): the new syntax added in v1.1.21+ is now the only syntax. Root key and subkey are combined. Instead of RootKey, Key, write RootKey\Key. To connect to a remote registry, use \\ComputerName\RootKey\Key instead of \\ComputerName:RootKey, Key.
+
+RegWrite's parameters were reordered to put Value first, like IniWrite (but this doesn't affect the single-parameter mode, where Value was the only parameter).
+
+When KeyName is omitted and the current loop reg item is a subkey, RegDelete, RegRead and RegWrite now operate on values within that subkey; i.e. KeyName defaults to A_LoopRegKey "\" A_LoopRegName in that case (note that A_LoopRegKey was merged with A_LoopRegSubKey). Previously they behaved as follows:
+
+RegRead read a value with the same name as the subkey, if one existed in the parent key.
+RegWrite returned an error.
+RegDelete deleted the subkey.
+RegDelete, RegRead and RegWrite now allow ValueName to be specified when KeyName is omitted:
+
+If the current loop reg item is a subkey, ValueName defaults to empty (the subkey's default value) and ValueType must be specified.
+If the current loop reg item is a value, ValueName and ValueType default to that value's name and type, but one or both can be overridden.
+Otherwise, RegDelete with a blank or omitted ValueName now deletes the key's default value (not the key itself), for consistency with RegWrite, RegRead and A_LoopRegName. The phrase "AHK_DEFAULT" no longer has any special meaning. To delete a key, use RegDeleteKey (new).
+
+RegRead now has a Default parameter, like IniRead.
+
+RegRead had an undocumented 5-parameter mode, where the value type was specified after the output variable. This has been removed.
+
+Reload now does nothing if the script was read from stdin.
+
+Run and RunWait no longer recognize the UseErrorLevel option as ErrorLevel was removed. Use try/catch instead. A_LastError is set unconditionally, and can be inspected after an exception is caught/suppressed. RunWait returns the exit code.
+
+Send (and its variants) now interpret {LButton} and {RButton} in a way consistent with hotkeys and Click. That is, LButton is the primary button and RButton is the secondary button, even if the user has swapped the buttons via system settings.
+
+SendMessage and PostMessage now require wParam and lParam to be integers or objects with a Ptr property; an exception is thrown if they are given a non-numeric string or float. Previously a string was passed by address if the expression began with ", but other strings were coerced to integers. Passing the address of a variable (formerly &var, now StrPtr(var)) no longer updates the variable's length (use VarSetStrCapacity(&var, -1)).
+
+SendMessage and PostMessage now throw an exception on failure (or timeout) and do not set ErrorLevel. SendMessage returns the message reply.
+
+SetTimer no longer supports label or function names, but as it now accepts an expression and functions can be referenced directly by name, usage looks very similar: SetTimer MyFunc. As with all other functions which accept an object, SetTimer now allows expressions which return an object (previously it required a variable reference).
+
+Sort has received the following changes:
+
+The VarName parameter has been split into separate input/output parameters, for flexibility. Usage is now Output := Sort(Input [, Options, Function]).
+When any two items compare equal, the original order of the items is now automatically used as a tie-breaker to ensure more stable results.
+The C option now also accepts a suffix equivalent to the CaseSense parameter of other functions (in addition to CL): CLocale CLogical COn C1 COff C0. In particular, support for the "logical" comparison mode is new.
+Sound functions: SoundGet and SoundSet have been revised to better match the capabilities of the Vista+ sound APIs, dropping support for XP.
+
+Removed unsupported control types.
+Removed legacy mixer component types.
+Let components be referenced by name and/or index.
+Let devices be referenced by name-prefix and/or index.
+Split into separate Volume and Mute functions.
+Added SoundGetName for retrieving device or component names.
+Added SoundGetInterface for retrieving COM interfaces.
+StrGet: If Length is negative, its absolute value indicates the exact number of characters to convert, including any binary zeros that the string might contain -- in other words, the result is always a string of exactly that length. If Length is positive, the converted string ends at the first binary zero as in v1.
+
+StrGet/StrPut: The Address parameter can be an object with the Ptr and Size properties, such as the new Buffer object. The read/write is automatically limited by Size (which is in bytes). If Length is also specified, it must not exceed Size (multiplied by 2 for UTF-16).
+
+StrPut's return value is now in bytes, so it can be passed directly to Buffer().
+
+StrReplace now has a CaseSense parameter in place of OutputVarCount, which is moved one parameter to the right, with Limit following it.
+
+Suspend: Making a hotkey or hotstring's first line a call to Suspend no longer automatically makes it exempt from suspension. Instead, use #SuspendExempt or the S option. The "Permit" parameter value is no longer valid.
+
+Switch now performs case-sensitive comparison for strings by default, and has a CaseSense parameter which overrides the mode of case sensitivity and forces string (rather than numeric) comparison. Previously it was case-sensitive only if StringCaseSense was changed to On.
+
+SysGet now only has numeric sub-commands; its other sub-commands have been split into functions. See Sub-Commands further below for details.
+
+TrayTip's usage has changed to TrayTip [Text, Title, Options]. Options is a string of zero or more case-insensitive options delimited by a space or tab. The options are Iconx, Icon!, Iconi, Mute and/or any numeric value as before. TrayTip now shows even if Text is omitted (which is now harder to do by accident than in v1). The Seconds parameter no long exists (it had no effect on Windows Vista or later). Scripts may now use the NIIF_USER (0x4) and NIIF_LARGE_ICON (0x20) flags in combination (0x24) to include the large version of the tray icon in the notification. NIIF_USER (0x4) can also be used on its own for the small icon, but may not have consistent results across all OSes.
+
+#Warn UseUnsetLocal and UseUnsetGlobal have been removed, as reading an unset variable now raises an error. IsSet can be used to avoid the error and try/catch or OnError can be used to handle it.
+
+#Warn VarUnset was added; it defaults to MsgBox. If not disabled, a warning is given for the first non-dynamic reference to each variable which is never used as the target of a direct, non-dynamic assignment or the reference operator (&), or passed directly to IsSet.
+
+#Warn Unreachable no longer considers lines following an Exit call to be unreachable, as Exit is now an ordinary function.
+
+#Warn ClassOverwrite has been removed, as top-level classes can no longer be overwritten by assignment. (However, they can now be implicitly shadowed by a local variable; that can be detected by #Warn LocalSameAsGlobal.)
+
+WinActivate now sends {Alt up} after its first failed attempt at activating a window. Testing has shown this reduces the occurrence of flashing taskbar buttons. See the documentation for more details.
+
+WinSetTitle and WinMove now use parameter order consistent with other Win functions; i.e. WinTitle, WinText, ExcludeTitle, ExcludeText are always grouped together (at the end of the parameter list), to aide memorisation.
+
+The WinTitle parameter of various functions can now accept a HWND (must be a pure integer) or an object with a Hwnd property, such as a Gui object. DetectHiddenWindows is ignored in such cases.
+
+WinMove no longer has special handling for the literal word DEFAULT. Omit the parameter or specify an empty string instead (this works in both v1 and v2).
+
+WinWait, WinWaitClose, WinWaitActive and WinWaitNotActive return non-zero if the wait finished (timeout did not expire). ErrorLevel was removed. WinWait and WinWaitActive return the HWND of the found window. WinWaitClose now sets the Last Found Window, so if WinWaitClose times out, it returns false and WinExist() returns the last window it found. For the timeout, specifying 0 is no longer the same as specifying 0.5; instead, it produces the shortest wait possible.
+
+Unsorted:
+
+A negative StartingPos for InStr, SubStr, RegExMatch and RegExReplace is interpreted as a position from the end. Position -1 is the last character and position 0 is invalid (whereas in v1, position 0 was the last character).
+
+Functions which previously accepted On/Off or On/Off/Toggle (but not other strings) now require 1/0/-1 instead. On and Off would typically be replaced with True and False. Variables which returned On/Off now return 1/0, which are more useful in expressions.
+
+#UseHook and #MaxThreadsBuffer allow 1, 0, True and False. (Unlike the others, they do not actually support expressions.)
+ListLines allows blank or boolean.
+ControlSetChecked, ControlSetEnabled, Pause, Suspend, WinSetAlwaysOnTop, and WinSetEnabled allow 1, 0 and -1.
+A_DetectHiddenWindows, A_DetectHiddenText, and A_StoreCapsLockMode use boolean (as do the corresponding functions).
+The following functions return a pure integer instead of a hexadecimal string:
+
+ControlGetExStyle
+ControlGetHwnd
+ControlGetStyle
+MouseGetPos
+WinActive
+WinExist
+WinGetID
+WinGetIDLast
+WinGetList (within the Array)
+WinGetStyle
+WinGetStyleEx
+WinGetControlsHwnd (within the Array)
+A_ScriptHwnd also returns a pure integer.
+
+DllCall
+If a type parameter is a variable, that variable's content is always used, never its name. In other words, unquoted type names are no longer supported - type names must be enclosed in quote marks.
+
+When DllCall updates the length of a variable passed as Str or WStr, it now detects if the string was not properly null-terminated (likely indicating that buffer overrun has occurred), and terminates the program with an error message if so, as safe execution cannot be guaranteed.
+
+AStr (without any suffix) is now input-only. Since the buffer is only ever as large as the input string, it was usually not useful for output parameters. This would apply to WStr instead of AStr if AutoHotkey is compiled for ANSI, but official v2 releases are only ever compiled for Unicode.
+
+If a function writes a new address to a Str*, AStr* or WStr* parameter, DllCall now assigns the new string to the corresponding variable if one was supplied, instead of merely updating the length of the original string (which probably hasn't changed). Parameters of this type are usually not used to modify the input string, but rather to pass back a string at a new address.
+
+DllCall now accepts an object for any Ptr parameter and the Function parameter; the object must have a Ptr property. For buffers allocated by the script, the new Buffer object is preferred over a variable. For Ptr*, the parameter's new value is assigned back to the object's Ptr property. This allows constructs such as DllCall(..., "Ptr*", unk := IUnknown.new()), which reduces repetition compared to DllCall(..., "Ptr*", punk), unk := IUnknown.new(punk), and can be used to ensure any output from the function is properly freed (even if an exception is thrown due to the HRESULT return type, although typically the function would not output a non-null pointer in that case).
+
+DllCall now requires the values of numeric-type parameters to be numeric, and will throw an exception if given a non-numeric or empty string. In particular, if the * or P suffix is used for output parameters, the output variable is required to be initialized.
+
+The output value (if any) of numeric parameters with the * or P suffix is ignored if the script passes a plain variable containing a number. To receive the output value, pass a VarRef such as &myVar or an object with a Ptr property.
+
+The new HRESULT return type throws an exception if the function failed (int < 0 or uint & 0x80000000). This should be used only with functions that actually return a HRESULT.
+
+Loop Sub-commands
+The sub-command keyword must be written literally; it must not be enclosed in quote marks and cannot be a variable or expression. All other parameters are expressions. All loop sub-commands now support OTB.
+
+Removed:
+
+Loop, FilePattern [, IncludeFolders?, Recurse?]
+Loop, RootKey [, Key, IncludeSubkeys?, Recurse?]
+Use the following (added in v1.1.21) instead:
+
+Loop Files, FilePattern [, Mode]
+Loop Reg, RootKey\Key [, Mode]
+The comma after the second word is now optional.
+
+A_LoopRegKey now contains the root key and subkey, and A_LoopRegSubKey was removed.
+
+InputBox
+Obj := InputBox([Text, Title, Options, Default])
+The Options parameter accepts a string of zero or more case-insensitive options delimited by a space or tab, similar to Gui control options. For example, this includes all supported options: x0 y0 w100 h100 T10.0 Password*. T is timeout and Password has the same usage as the equivalent Edit control option.
+
+The width and height options now set the size of the client area (the area excluding the title bar and window frame), so are less theme-dependent.
+
+The title will be blank if the Title parameter is an empty string. It defaults to A_ScriptName only when completely omitted, consistent with optional parameters of user-defined functions.
+
+Obj is an object with the properties result (containing "OK", "Cancel" or "Timeout") and value.
+
+MsgBox
+Result := MsgBox([Text, Title, Options])
+The Options parameter accepts a string of zero or more case-insensitive options delimited by a space or tab, similar to Gui control options.
+
+Iconx, Icon?, Icon! and Iconi set the icon.
+Default followed immediately by an integer sets the nth button as default.
+T followed immediately by an integer or floating-point number sets the timeout, in seconds.
+Owner followed immediately by a HWND sets the owner, overriding the Gui +OwnDialogs option.
+One of the following mutually-exclusive strings sets the button choices: OK, OKCancel, AbortRetryIgnore, YesNoCancel, YesNo, RetryCancel, CancelTryAgainContinue, or just the initials separated by slashes (o/c, y/n, etc.), or just the initials without slashes.
+Any numeric value, the same as in v1. Numeric values can be combined with string options, or Options can be a pure integer.
+The return value is the name of the button, without spaces. These are the same strings that were used with IfMsgBox in v1.
+
+The title will be blank if the Title parameter is an empty string. It defaults to A_ScriptName only when completely omitted, consistent with optional parameters of user-defined functions.
+
+Sub-Commands
+Sub-commands of Control, ControlGet, Drive, DriveGet, WinGet, WinSet and Process have been replaced with individual functions, and the main commands have been removed. Names and usage have been changed for several of the functions. The new usage is shown below:
+
+; Where ... means optional Control, WinTitle, etc.
+
+Bool  := ControlGetChecked(...)
+Bool  := ControlGetEnabled(...)
+Bool  := ControlGetVisible(...)
+Int   := ControlGetIndex(...)  ; For Tab, LB, CB, DDL
+Str   := ControlGetChoice(...)
+Arr   := ControlGetItems(...)
+Int   := ControlGetStyle(...)
+Int   := ControlGetExStyle(...)
+Int   := ControlGetHwnd(...)
+
+         ControlSetChecked(TrueFalseToggle, ...)
+         ControlSetEnabled(TrueFalseToggle, ...)
+         ControlShow(...)
+         ControlHide(...)
+         ControlSetStyle(Value, ...)
+         ControlSetExStyle(Value, ...)
+         ControlShowDropDown(...)
+         ControlHideDropDown(...)
+         ControlChooseIndex(Index, ...)  ; Also covers Tab
+Index := ControlChooseString(Str, ...)
+
+Index := ControlFindItem(Str, ...)
+Index := ControlAddItem(Str, ...)
+         ControlDeleteItem(Index, ...)
+
+Int   := EditGetLineCount(...)
+Int   := EditGetCurrentLine(...)
+Int   := EditGetCurrentCol(...)
+Str   := EditGetLine(N [, ...])
+Str   := EditGetSelectedText(...)
+         EditPaste(Str, ...)
+
+Str   := ListViewGetContent([Options, ...])
+
+         DriveEject([Drive])
+         DriveRetract([Drive])
+         DriveLock(Drive)
+         DriveUnlock(Drive)
+         DriveSetLabel(Drive [, Label])
+
+Str   := DriveGetList([Type])
+Str   := DriveGetFilesystem(Drive)
+Str   := DriveGetLabel(Drive)
+Str   := DriveGetSerial(Drive)
+Str   := DriveGetType(Path)
+Str   := DriveGetStatus(Path)
+Str   := DriveGetStatusCD(Drive)
+Int   := DriveGetCapacity(Path)
+Int   := DriveGetSpaceFree(Path)
+
+; Where ... means optional WinTitle, etc.
+
+Int   := WinGetID(...)
+Int   := WinGetIDLast(...)
+Int   := WinGetPID(...)
+Str   := WinGetProcessName(...)
+Str   := WinGetProcessPath(...)
+Int   := WinGetCount(...)
+Arr   := WinGetList(...)
+Int   := WinGetMinMax(...)
+Arr   := WinGetControls(...)
+Arr   := WinGetControlsHwnd(...)
+Int   := WinGetTransparent(...)
+Str   := WinGetTransColor(...)
+Int   := WinGetStyle(...)
+Int   := WinGetExStyle(...)
+
+         WinSetTransparent(N [, ...])
+         WinSetTransColor("Color [N]" [, ...]),
+         WinSetAlwaysOnTop([TrueFalseToggle := -1, ...])
+         WinSetStyle(Value [, ...])
+         WinSetExStyle(Value [, ...])
+         WinSetEnabled(Value [, ...])
+         WinSetRegion(Value [, ...])
+
+         WinRedraw(...)
+         WinMoveBottom(...)
+         WinMoveTop(...)
+
+PID   := ProcessExist([PID_or_Name])
+PID   := ProcessClose(PID_or_Name)
+PID   := ProcessWait(PID_or_Name [, Timeout])
+PID   := ProcessWaitClose(PID_or_Name [, Timeout])
+
+         ProcessSetPriority(Priority [, PID_or_Name])
+ProcessExist, ProcessClose, ProcessWait and ProcessWaitClose no longer set ErrorLevel; instead, they return the PID.
+
+None of the other functions set ErrorLevel. Instead, they throw an exception on failure. In most cases failure is because the target window or control was not found.
+
+HWNDs and styles are always returned as pure integers, not hexadecimal strings.
+
+ControlChooseIndex allows 0 to deselect the current item/all items. It replaces "Control Choose", but also supports Tab controls.
+
+"ControlGet Tab" was merged into ControlGetIndex, which also works with ListBox, ComboBox and DDL. For Tab controls, it returns 0 if no tab is selected (rare but valid). ControlChooseIndex does not permit 0 for Tab controls since applications tend not to handle it.
+
+ControlGetItems replaces "ControlGet List" for ListBox and ComboBox. It returns an Array.
+
+DriveEject and DriveRetract now use DeviceIoControl instead of mciSendString. DriveEject is therefore able to eject non-CD/DVD drives which have an "Eject" option in Explorer (i.e. removable drives but not external hard drives which show as fixed disks).
+
+ListViewGetContent replaces "ControlGet List" for ListView, and currently has the same usage as before.
+
+WinGetList, WinGetControls and WinGetControlsHwnd return arrays, not newline-delimited lists.
+
+WinSetTransparent treats "" as "Off" rather than 0 (which would make the window invisible and unclickable).
+
+Abbreviated aliases such as Topmost, Trans, FS and Cap were removed.
+
+The following functions were formerly sub-commands of SysGet:
+
