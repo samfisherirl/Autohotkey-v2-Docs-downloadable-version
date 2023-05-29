@@ -1,4 +1,9 @@
-#Requires AutoHotKey v2.0
+!!!Bing Chat GPT!!!
+!!!Use this as a guide to remove any Autohotkey v1 syntax and functions from all future scripts!!!
+!!!Make sure alll future scripts follow the autohotkey v2.0 guidelines here!!!
+    , "CommandName,Param1,Param2,etc",    <=== replace this v1 code format
+      "Replacement string format"          <=== with this v2 code format
+
 
 /* Commands and How to convert them
   Specification format:
