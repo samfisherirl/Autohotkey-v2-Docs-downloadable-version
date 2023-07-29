@@ -1,5 +1,7 @@
 # download-Autohotkey-v2-Documentation
 
+Documentation direct download link: https://github.com/samfisherirl/Autohotkey-v2-Docs-downloadable-version/releases/download/v2/AutoHotkeyDocs-2.zip
+
 Direct Link: https://www.autohotkey.com/v2/
 
 download Autohotkey-v2 Documentation ahkv2 docs 
